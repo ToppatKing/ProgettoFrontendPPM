@@ -1,0 +1,2663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Lorem Ipsum | Dolor sit amet consectetur adipiscing elit</title>
+<meta name="description" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,300;1,8..60,400;1,8..60,700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet"/>
+
+<style>
+/* CSS Variables for easy theming and consistent branding */
+:root{
+  --blue:    #052962;
+  --red:     #c70000;
+  --amber:   #e05e00;
+  --green:   #0e7d0e;
+  --teal:    #005689;
+  --brown:   #a1845c;
+  --pink:    #bb3b80;
+  --env:     #185c37;
+  --yellow:  #ffe500;
+  --sky:     #e8f1f9;
+  --bg:      #f6f6f6;
+  --white:   #ffffff;
+  --border:  #dcdcdc;
+  --border-l:#ededed;
+  --text:    #121212;
+  --muted:   #767676;
+  --ff-ser:  'Source Serif 4', Georgia, serif; /* headings */
+  --ff-san:  'Source Sans 3', 'Helvetica Neue', sans-serif; /* body/UI */
+  --max:     1300px; /* max container width */
+  --label-w: 90px;
+  --hdr-h:   90px; 
+}
+
+/* Dark mode overrides - kicks in when data-theme="dark" is on the html tag */
+[data-theme="dark"]{
+  --bg:      #1a1a1a;
+  --white:   #242424;
+  --border:  #383838;
+  --border-l:#2e2e2e;
+  --text:    #e8e8e8;
+  --muted:   #aaaaaa;
+  --sky:     #1e2c3a;
+}
+
+/* Reset and base styles */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--ff-san);
+  color:var(--text);
+  background:var(--bg);
+  line-height:1.4;
+  -webkit-font-smoothing:antialiased;
+  transition:background .25s,color .25s; /* smooth fade when toggling dark mode */
+}
+img{display:block;width:100%;height:auto;object-fit:cover}
+a{color:inherit;text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible,button:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+ul,ol{list-style:none}
+button{cursor:pointer;border:none;background:none;font-family:inherit;color:inherit;padding:0}
+
+/* Accessibility: hidden skip link that appears when tabbed to */
+.skip{
+  position:absolute;top:-50px;left:0;
+  background:var(--blue);color:#fff;
+  padding:8px 18px;font-size:14px;font-weight:700;
+  z-index:9999;transition:top .15s
+}
+.skip:focus{top:0}
+
+/* Screen-reader only class for hidden labels */
+.sr-only{
+  position:absolute;width:1px;height:1px;
+  padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0,0,0,0);white-space:nowrap;border:0
+}
+
+/* Top reading progress indicator */
+#progress-bar{
+  position:fixed;top:0;left:0;
+  height:3px;width:0%;
+  background:var(--yellow);
+  z-index:9998;
+  transition:width .1s linear;
+  pointer-events:none;
+}
+
+/* Cookie banner fixed to bottom */
+#cookie-banner{
+  position:fixed;bottom:0;left:0;right:0;
+  background:#1a1a1a;color:#fff;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:12px;
+  padding:14px 18px;
+  z-index:8000;
+  font-family:var(--ff-san);font-size:13px;
+  transition:transform .3s ease;
+}
+#cookie-banner.hidden{transform:translateY(100%)}
+#cookie-banner p{flex:1 1 300px;color:rgba(255,255,255,.85);line-height:1.5}
+.cookie-btns{display:flex;gap:8px;flex-wrap:wrap}
+.cookie-btn{
+  font-family:var(--ff-san);font-size:13px;font-weight:700;
+  padding:7px 16px;border-radius:2px;cursor:pointer;border:none;
+}
+.cookie-btn--accept{background:var(--yellow);color:#121212}
+.cookie-btn--manage{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4)}
+
+/* Full screen search overlay */
+#search-overlay{
+  position:fixed;inset:0;
+  background:rgba(5,41,98,.97);
+  z-index:6000;
+  display:flex;flex-direction:column;
+  align-items:center;
+  padding-top:80px;
+  opacity:0;pointer-events:none;
+  transition:opacity .2s ease;
+}
+#search-overlay.open{opacity:1;pointer-events:all}
+.search-wrap{
+  width:100%;max-width:680px;
+  padding:0 20px;
+}
+.search-input-row{
+  display:flex;align-items:center;
+  border-bottom:2px solid rgba(255,255,255,.5);
+  padding-bottom:8px;margin-bottom:20px;
+}
+#search-input{
+  flex:1;background:transparent;border:none;
+  color:#fff;font-family:var(--ff-ser);font-size:28px;font-weight:300;
+  outline:none;
+}
+#search-input::placeholder{color:rgba(255,255,255,.4)}
+.search-close{
+  color:rgba(255,255,255,.7);font-size:28px;
+  padding:4px;transition:color .15s;
+}
+.search-close:hover{color:#fff}
+.search-hints{
+  font-family:var(--ff-san);font-size:13px;
+  color:rgba(255,255,255,.6);
+}
+.search-hints span{
+  display:inline-block;background:rgba(255,255,255,.12);
+  padding:4px 10px;border-radius:14px;margin:4px 4px 4px 0;
+  cursor:pointer;transition:background .15s;
+}
+.search-hints span:hover{background:rgba(255,255,255,.22)}
+
+/* Mobile slide-out nav */
+#mobile-nav{
+  position:fixed;inset:0;
+  background:var(--blue);
+  z-index:5000;
+  overflow-y:auto;
+  transform:translateX(-100%); /* offscreen by default */
+  transition:transform .3s ease;
+}
+#mobile-nav.open{transform:translateX(0)}
+.mnav-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 16px;
+  border-bottom:1px solid rgba(255,255,255,.15);
+}
+.mnav-logo{
+  font-family:var(--ff-ser);font-weight:700;font-size:24px;color:#fff
+}
+.mnav-close{
+  color:#fff;font-size:26px;padding:4px;
+  display:flex;align-items:center;justify-content:center;
+}
+.mnav-section{border-bottom:1px solid rgba(255,255,255,.15)}
+.mnav-link{
+  display:block;
+  font-family:var(--ff-san);font-size:16px;font-weight:700;
+  color:rgba(255,255,255,.88);padding:13px 16px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  transition:background .15s;
+}
+.mnav-link:hover{background:rgba(255,255,255,.07);text-decoration:none}
+.mnav-link--news{color:#a8d3f7}
+.mnav-link--opinion{color:#ffd07f}
+.mnav-link--sport{color:#a5d6a7}
+.mnav-link--culture{color:#f9d07f}
+.mnav-link--life{color:#f8bbd0}
+.mnav-sub{
+  font-family:var(--ff-san);font-size:13px;
+  color:rgba(255,255,255,.55);padding:10px 16px 4px;
+  letter-spacing:.06em;text-transform:uppercase;
+}
+.mnav-actions{display:flex;gap:10px;padding:16px;flex-wrap:wrap}
+.mnav-btn{
+  font-family:var(--ff-san);font-size:13px;font-weight:700;
+  padding:8px 18px;border-radius:2px;
+}
+.mnav-btn--yellow{background:var(--yellow);color:#121212}
+.mnav-btn--ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4)}
+
+/* Header & Navigation */
+#edition-dropdown{
+  position:absolute;top:calc(100% + 4px);right:0;
+  background:var(--white);border:1px solid var(--border);
+  min-width:200px;
+  box-shadow:0 4px 20px rgba(0,0,0,.2);
+  z-index:3000;
+  display:none;
+}
+#edition-dropdown.open{display:block}
+.ed-item{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 14px;cursor:pointer;
+  font-family:var(--ff-san);font-size:14px;
+  color:var(--text);
+  border-bottom:1px solid var(--border-l);
+  transition:background .15s;
+}
+.ed-item:hover{background:var(--sky);text-decoration:none}
+.ed-item:last-child{border-bottom:none}
+.ed-flag{font-size:18px}
+.ed-name{font-weight:600}
+.ed-item.current{background:var(--sky)}
+.ed-item.current .ed-name::after{content:' ✓';color:var(--teal)}
+
+/* Sticky main header */
+#hdr{
+  background:var(--blue);
+  position:sticky;top:0;z-index:400;
+  transition:box-shadow .2s;
+}
+#hdr.scrolled{box-shadow:0 2px 12px rgba(0,0,0,.4)}
+
+.hd-row1{
+  display:flex;align-items:stretch;justify-content:space-between;
+  max-width:var(--max);margin:0 auto;padding:0 10px;
+}
+.hd-primary{display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:none}
+.hd-primary::-webkit-scrollbar{display:none} /* hide scrollbar for horizontal swipe on mobile */
+.hd-pill{
+  display:flex;align-items:center;
+  font-family:var(--ff-san);font-size:14px;font-weight:700;
+  color:rgba(255,255,255,.85);padding:12px 10px;
+  border-bottom:3px solid transparent;white-space:nowrap;
+  transition:color .15s,border-color .15s;flex-shrink:0;
+}
+.hd-pill:hover{color:#fff;text-decoration:none}
+.hd-pill.active{color:#fff;border-bottom-color:var(--yellow)}
+.hd-pill--news{color:#a8d3f7}
+.hd-pill--opinion{color:#ffd07f}
+.hd-pill--sport{color:#a5d6a7}
+.hd-pill--culture{color:#ffd07f}
+.hd-pill--life{color:#f8bbd0}
+
+.hd-dot-wrap{position:relative;display:flex;align-items:center;margin-left:4px}
+.hd-dot{
+  display:flex;align-items:center;justify-content:center;
+  width:28px;height:28px;border-radius:50%;
+  background:var(--yellow);font-size:11px;font-weight:700;
+  color:var(--blue);flex-shrink:0;cursor:pointer;
+  transition:background .15s;
+}
+.hd-dot:hover{background:#ffd000}
+
+.hd-masthead{
+  display:flex;flex-direction:column;
+  align-items:flex-end;justify-content:center;
+  padding:4px 0;gap:2px;flex-shrink:0;margin-left:12px;
+}
+.hd-edition-text{
+  font-family:var(--ff-san);font-size:11px;font-weight:600;
+  color:rgba(255,255,255,.6);letter-spacing:.04em;
+}
+.hd-logo-text{
+  font-family:var(--ff-ser);font-weight:700;font-size:34px;
+  color:#fff;line-height:1;letter-spacing:-.03em;
+  white-space:nowrap;
+}
+@media(max-width:640px){.hd-logo-text{font-size:22px}}
+
+.hd-controls{display:flex;align-items:center;gap:4px;margin-left:10px}
+.hd-ico{
+  display:flex;align-items:center;justify-content:center;
+  width:34px;height:34px;border-radius:50%;
+  color:#fff;transition:background .15s;flex-shrink:0;
+}
+.hd-ico:hover{background:rgba(255,255,255,.12)}
+.hd-ico svg{width:20px;height:20px;fill:currentColor}
+
+.hd-theme{
+  display:flex;align-items:center;justify-content:center;
+  width:34px;height:34px;color:#fff;font-size:16px;
+  border-radius:50%;transition:background .15s;flex-shrink:0;
+}
+.hd-theme:hover{background:rgba(255,255,255,.12)}
+
+/* Hamburger menu button for small screens */
+.hd-ham{
+  display:none;flex-direction:column;justify-content:center;
+  gap:5px;width:34px;height:34px;padding:8px;color:#fff;
+}
+.hd-ham span{
+  display:block;height:2px;background:currentColor;
+  border-radius:1px;transition:.25s;
+}
+@media(max-width:680px){.hd-ham{display:flex}}
+@media(max-width:680px){.hd-pill--culture,.hd-pill--life{display:none}} /* collapse less important tabs on mobile */
+
+.hd-row2{border-top:1px solid rgba(255,255,255,.14)}
+.hd-secondary{
+  display:flex;overflow-x:auto;scrollbar-width:none;
+  max-width:var(--max);margin:0 auto;padding:0 6px;
+}
+.hd-secondary::-webkit-scrollbar{display:none}
+.hd-secondary a{
+  flex-shrink:0;font-family:var(--ff-san);font-size:13px;
+  color:rgba(255,255,255,.7);padding:8px 10px;white-space:nowrap;
+  transition:color .15s;
+}
+.hd-secondary a:hover{color:#fff;text-decoration:none}
+
+/* Animated breaking news ticker */
+.breaking{
+  background:var(--red);color:#fff;
+  display:flex;align-items:center;gap:10px;
+  padding:7px 12px;overflow:hidden;
+}
+.live-chip{
+  flex-shrink:0;display:flex;align-items:center;gap:5px;
+  background:rgba(0,0,0,.22);
+  font-family:var(--ff-san);font-size:11px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.07em;
+  padding:2px 8px;border-radius:2px;white-space:nowrap;
+}
+.live-dot{
+  width:6px;height:6px;background:#fff;
+  border-radius:50%;animation:blink 1.2s infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.ticker-wrap{flex:1;overflow:hidden;position:relative}
+.ticker-text{
+  display:flex;white-space:nowrap;
+  animation:ticker 28s linear infinite;
+}
+.ticker-text span{
+  font-family:var(--ff-san);font-size:13px;
+  font-weight:600;padding-right:80px;flex-shrink:0;
+}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.ticker-text:hover{animation-play-state:paused} /* pause scrolling when hovering */
+
+.page{
+  max-width:var(--max);margin:0 auto;
+  padding:0 10px;
+  background:var(--white);
+  transition:background .25s;
+}
+
+/* Base grid layout for sections - sidebar label + content */
+.s-row{
+  display:grid;
+  grid-template-columns:var(--label-w) 1fr;
+  gap:0 20px;
+  border-top:1px solid var(--border);
+  padding:8px 0 16px;
+  transition:border-color .25s;
+}
+.s-label{
+  padding-top:4px;
+  font-family:var(--ff-san);font-size:14px;font-weight:700;
+  color:var(--text);line-height:1.25;flex-shrink:0;
+}
+/* Color classes for different categories */
+.s-label--red{color:var(--red)}
+.s-label--amber{color:var(--amber)}
+.s-label--green{color:var(--green)}
+.s-label--teal{color:var(--teal)}
+.s-label--brown{color:var(--brown)}
+.s-label--pink{color:var(--pink)}
+.s-label--env{color:var(--env)}
+.s-content{min-width:0}
+
+/* Stack label on top for mobile */
+@media(max-width:700px){
+  .s-row{grid-template-columns:1fr}
+  .s-label{padding-bottom:8px;border-bottom:2px solid currentColor;margin-bottom:8px}
+}
+
+/* Article grid helpers */
+.g2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px 20px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px 20px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px 20px}
+.g-21{display:grid;grid-template-columns:2fr 1fr;gap:12px 20px}
+.g-211{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px 20px}
+
+/* Breakpoints to drop grid columns down on smaller screens */
+@media(max-width:1000px){.g4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){
+  .g3{grid-template-columns:repeat(2,1fr)}
+  .g-211{grid-template-columns:1fr 1fr}
+  .g-211>*:first-child{grid-column:1/3}
+}
+@media(max-width:640px){
+  .g2{grid-template-columns:1fr}
+  .g-21{grid-template-columns:1fr}
+}
+@media(max-width:500px){
+  .g4{grid-template-columns:1fr}
+  .g3{grid-template-columns:1fr}
+  .g-211{grid-template-columns:1fr}
+  .g-211>*:first-child{grid-column:1}
+}
+
+/* Article cards styling */
+.art__img{overflow:hidden;margin-bottom:6px}
+.art__img img{
+  aspect-ratio:5/3;
+  transition:transform .35s ease; /* gentle zoom effect on hover */
+}
+.art:hover .art__img img{transform:scale(1.03)}
+.art__kicker{
+  display:block;
+  font-family:var(--ff-san);font-size:11px;font-weight:700;
+  color:var(--teal);margin-bottom:3px;
+}
+.art__kicker--red{color:var(--red)}
+.art__kicker--amber{color:var(--amber)}
+.art__kicker--green{color:var(--green)}
+.art__kicker--brown{color:var(--brown)}
+.art__kicker--pink{color:var(--pink)}
+.art__kicker--env{color:var(--env)}
+.art__kicker--muted{color:var(--muted)}
+.art__h{
+  font-family:var(--ff-ser);font-weight:700;
+  line-height:1.25;color:var(--text);margin-bottom:4px;
+  transition:color .25s;
+}
+.art__h a:hover{text-decoration:underline}
+.art__h--xl{font-size:28px}
+.art__h--lg{font-size:22px}
+.art__h--md{font-size:18px}
+.art__h--sm{font-size:15px}
+.art__h--xs{font-size:14px}
+.art__deck{font-family:var(--ff-san);font-size:14px;color:#555;line-height:1.5;margin-bottom:4px}
+[data-theme="dark"] .art__deck{color:#aaa} /* lighter text in dark mode for readability */
+.art__byline{font-family:var(--ff-san);font-size:13px;color:var(--teal)}
+.art__time{font-family:var(--ff-san);font-size:12px;color:var(--muted);margin-top:3px}
+.art__stars{color:#c9770a;font-size:13px;margin-top:3px}
+figcaption{
+  font-family:var(--ff-san);font-size:11px;
+  color:var(--muted);margin-top:3px;line-height:1.4;
+}
+
+/* Little UI pill tags */
+.lbl-live{
+  display:inline-flex;align-items:center;gap:4px;
+  background:var(--red);color:#fff;
+  font-family:var(--ff-san);font-size:11px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.05em;
+  padding:1px 7px;border-radius:2px;margin-bottom:5px;
+}
+.lbl-live::before{
+  content:'';display:block;
+  width:5px;height:5px;border-radius:50%;
+  background:#fff;animation:blink 1.2s infinite;
+}
+.lbl-excl,.lbl-analysis{
+  display:inline-block;
+  font-family:var(--ff-san);font-size:11px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.05em;
+  padding:1px 7px;border-radius:2px;margin-bottom:5px;
+}
+.lbl-excl{background:var(--sky);color:var(--teal)}
+.lbl-analysis{background:#e8f5e0;color:var(--env)}
+.lbl-nl{
+  display:inline-block;background:var(--text);color:var(--white);
+  font-family:var(--ff-san);font-size:11px;font-weight:700;
+  padding:2px 8px;border-radius:10px;margin-top:4px;
+  transition:background .25s,color .25s;
+}
+
+.stack>.art{
+  padding-bottom:12px;margin-bottom:12px;
+  border-bottom:1px solid var(--border-l);
+}
+.stack>.art:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+
+/* Horizontal article layout */
+.art--h{
+  display:grid;grid-template-columns:120px 1fr;
+  gap:10px;align-items:start;
+  padding:10px 0;border-bottom:1px solid var(--border-l);
+}
+.art--h:last-child{border-bottom:none;padding-bottom:0}
+.art--h .art__img img{aspect-ratio:1}
+
+/* Opinion/Editorial styling */
+.art--op .art__h{
+  font-family:var(--ff-ser);font-style:italic;
+  color:var(--amber);
+}
+.art--op .art__h::before{
+  content:'\201C'; /* fancy opening quote */
+  font-size:1.3em;color:var(--amber);
+  margin-right:1px;line-height:0;vertical-align:-5px;
+}
+.op-row{
+  display:grid;grid-template-columns:1fr 72px;
+  gap:12px;align-items:start;
+  padding:12px 0;border-bottom:1px solid var(--border);
+}
+.op-row:last-child{border-bottom:none;padding-bottom:0}
+.op-avatar{
+  width:64px;height:64px;border-radius:50%;
+  overflow:hidden;background:#e0d8d0;flex-shrink:0;
+}
+.op-avatar img{width:100%;height:100%;object-fit:cover}
+.op-name{
+  font-family:var(--ff-san);font-size:13px;font-weight:700;
+  color:var(--amber);margin-top:4px;
+}
+
+.op-sm .art__h{
+  font-family:var(--ff-ser);font-style:italic;
+  color:var(--amber);font-size:15px;
+}
+.op-sm .art__h::before{
+  content:'\201C';font-size:1.2em;
+  color:var(--amber);margin-right:1px;
+  line-height:0;vertical-align:-4px;
+}
+.op-sm .op-avatar{width:48px;height:48px;margin-top:8px}
+
+/* Feature cards with image background */
+.feat-card{position:relative;overflow:hidden;display:block}
+.feat-card img{aspect-ratio:3/4;object-fit:cover;transition:transform .35s}
+.feat-card:hover img{transform:scale(1.04)}
+.feat-card__body{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(transparent,rgba(0,0,0,.78));
+  padding:40px 12px 14px;color:#fff;
+}
+.feat-card__kicker{
+  font-family:var(--ff-san);font-size:11px;font-weight:700;
+  color:rgba(255,255,255,.8);text-transform:uppercase;
+  letter-spacing:.05em;margin-bottom:5px;
+}
+.feat-card__h{
+  font-family:var(--ff-ser);font-size:18px;
+  font-weight:700;line-height:1.25;color:#fff;
+}
+.feat-card__time{
+  font-family:var(--ff-san);font-size:11px;
+  color:rgba(255,255,255,.65);margin-top:5px;
+}
+
+/* "You missed" cards styling */
+.missed-card{position:relative;overflow:hidden;display:block}
+.missed-card img{aspect-ratio:5/4;object-fit:cover;transition:transform .35s}
+.missed-card:hover img{transform:scale(1.04)}
+.missed-card__body{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(transparent,rgba(0,0,0,.82));
+  padding:30px 12px 12px;color:#fff;
+}
+.missed-card__kicker{
+  font-family:var(--ff-san);font-size:11px;
+  color:rgba(255,255,255,.7);margin-bottom:4px;
+}
+.missed-card__h{
+  font-family:var(--ff-ser);font-size:16px;
+  font-weight:700;color:#fff;line-height:1.3;
+}
+
+/* Custom layout wrappers */
+.news-feat{
+  display:grid;grid-template-columns:2fr 1fr;
+  gap:0 20px;margin-bottom:16px;
+}
+@media(max-width:700px){.news-feat{grid-template-columns:1fr}}
+.sport-feat{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:20px;margin-bottom:12px;
+}
+@media(max-width:700px){.sport-feat{grid-template-columns:1fr}}
+.culture-hero{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:12px;margin-bottom:12px;
+}
+@media(max-width:600px){.culture-hero{grid-template-columns:1fr}}
+.inpic-layout{
+  display:grid;grid-template-columns:1fr 2fr;
+  gap:16px;align-items:start;
+}
+@media(max-width:640px){.inpic-layout{grid-template-columns:1fr}}
+.cartoon-layout{
+  display:grid;grid-template-columns:1fr 2fr;
+  gap:16px;align-items:start;
+}
+@media(max-width:600px){.cartoon-layout{grid-template-columns:1fr}}
+.takepart-grid{display:grid;grid-template-columns:1fr 1fr}
+.takepart-item{
+  display:grid;grid-template-columns:100px 1fr;
+  gap:10px;align-items:center;padding:10px 0;
+  border-bottom:1px solid var(--border);
+}
+.takepart-item:nth-child(odd){border-right:1px solid var(--border);padding-right:10px}
+.takepart-item:nth-child(even){padding-left:10px}
+.takepart-item img{aspect-ratio:4/3;object-fit:cover}
+@media(max-width:540px){
+  .takepart-grid{grid-template-columns:1fr}
+  .takepart-item:nth-child(odd){border-right:none;padding-right:0}
+  .takepart-item:nth-child(even){padding-left:0}
+}
+.nl-grid{display:grid;grid-template-columns:1fr 1fr}
+.nl-item{
+  display:grid;grid-template-columns:80px 1fr;
+  gap:10px;align-items:center;padding:10px 0;
+  border-bottom:1px solid var(--border);background:var(--bg);
+  transition:background .25s;
+}
+.nl-item:nth-child(odd){border-right:1px solid var(--border);padding-right:10px}
+.nl-item:nth-child(even){padding-left:10px}
+.nl-item img{aspect-ratio:1;object-fit:cover}
+@media(max-width:540px){
+  .nl-grid{grid-template-columns:1fr}
+  .nl-item:nth-child(odd){border-right:none;padding-right:0}
+  .nl-item:nth-child(even){padding-left:0}
+}
+
+/* Sponsored/Paid content banner */
+.paid-band{
+  background:#f1faf5;border-top:1px solid #c2d9ca;
+  border-bottom:1px solid #c2d9ca;padding:16px 10px;
+}
+.paid-inner{
+  max-width:var(--max);margin:0 auto;
+  display:grid;grid-template-columns:140px repeat(4,1fr);
+  gap:16px;align-items:start;
+}
+@media(max-width:900px){.paid-inner{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.paid-inner{grid-template-columns:1fr}}
+.paid-logo-circle{
+  width:64px;height:64px;border-radius:50%;background:#185c37;
+  display:flex;align-items:center;justify-content:center;flex-direction:column;
+  flex-shrink:0;
+}
+.paid-logo-circle span{
+  font-family:var(--ff-ser);font-size:10px;font-weight:700;
+  color:#fff;text-align:center;line-height:1.3;
+}
+.paid-tag{font-family:var(--ff-san);font-size:11px;color:var(--muted);margin-top:6px}
+.paid-about-btn{
+  font-family:var(--ff-san);font-size:11px;color:var(--teal);
+  display:flex;align-items:center;gap:2px;cursor:pointer;margin-top:3px;
+}
+.paid-name{font-family:var(--ff-ser);font-size:18px;font-weight:700;margin-top:8px;color:var(--text)}
+.paid-art__h{
+  font-family:var(--ff-ser);font-size:15px;font-weight:700;
+  line-height:1.3;margin-bottom:8px;color:var(--text);
+}
+.paid-art__img img{aspect-ratio:1}
+.paid-footer{
+  text-align:right;grid-column:1/-1;
+  font-family:var(--ff-san);font-size:12px;color:var(--muted);
+  padding-top:10px;border-top:1px solid #c2d9ca;
+}
+
+/* Editorials and cartoon specifics */
+.editorial-kicker{
+  font-family:var(--ff-san);font-size:12px;font-weight:700;
+  color:var(--teal);margin-bottom:3px;
+}
+.editorial-h{
+  font-family:var(--ff-ser);font-size:20px;
+  font-weight:700;line-height:1.3;color:var(--text);
+}
+.cartoon-credit{
+  font-family:var(--ff-san);font-size:11px;
+  color:var(--muted);margin-bottom:4px;font-style:italic;
+}
+.cartoon-h{
+  font-family:var(--ff-ser);font-size:22px;
+  font-weight:700;margin-bottom:6px;color:var(--text);
+}
+.cartoon-deck{
+  font-family:var(--ff-san);font-size:13px;
+  color:#555;margin-bottom:10px;
+}
+[data-theme="dark"] .cartoon-deck{color:#aaa}
+
+/* Special report banner */
+.special-layout{
+  display:grid;grid-template-columns:1fr 2fr;
+  gap:20px;align-items:start;
+  background:var(--blue);padding:16px;
+}
+.special-layout .art__h--xl{color:#fff}
+.special-deck{
+  font-family:var(--ff-san);font-size:14px;
+  color:rgba(255,255,255,.8);margin-top:6px;
+}
+@media(max-width:600px){.special-layout{grid-template-columns:1fr}}
+
+/* Most Popular sidebar tabs */
+.pop-tabs{
+  display:flex;border-bottom:1px solid var(--border);
+  margin-bottom:0;
+}
+.pop-tab{
+  font-family:var(--ff-san);font-size:14px;font-weight:700;
+  padding:10px 16px 10px 0;
+  border-bottom:3px solid transparent;
+  color:var(--muted);cursor:pointer;
+  transition:color .15s,border-color .15s;
+  margin-bottom:-1px;
+}
+.pop-tab.active{color:var(--text);border-bottom-color:var(--text)}
+.pop-sub{
+  font-family:var(--ff-san);font-size:12px;
+  color:var(--muted);padding:8px 0 4px;
+}
+.pop-sub a{color:var(--teal);font-size:11px}
+.pop-panel{display:none}
+.pop-panel.active{display:block}
+.pop-cols{display:grid;grid-template-columns:1fr 1fr;gap:0 32px}
+@media(max-width:640px){.pop-cols{grid-template-columns:1fr}}
+.pop-item{
+  display:flex;gap:10px;
+  padding:8px 0;border-bottom:1px solid var(--border-l);
+}
+.pop-item:last-child{border-bottom:none}
+.pop-num{
+  font-family:var(--ff-ser);font-size:28px;
+  font-weight:700;color:var(--border);
+  line-height:1;flex-shrink:0;width:30px;
+}
+.pop-text{font-family:var(--ff-san);font-size:14px;line-height:1.35;color:var(--text)}
+.pop-text a:hover{text-decoration:underline}
+
+/* Tag pills at the bottom of the page */
+.tags{
+  display:flex;flex-wrap:wrap;gap:6px;
+  padding:12px 0;border-top:1px solid var(--border);
+}
+.tags a{
+  font-family:var(--ff-san);font-size:12px;color:var(--teal);
+  padding:3px 12px;border:1px solid #c0d8e8;
+  border-radius:14px;white-space:nowrap;
+  transition:background .15s;
+}
+.tags a:hover{background:var(--sky);text-decoration:none}
+
+/* Tip off banner */
+.tipoff{
+  background:var(--blue);color:#fff;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;gap:12px;
+}
+.tipoff__label{
+  font-family:var(--ff-san);font-size:13px;
+  font-weight:700;flex-shrink:0;
+}
+.tipoff__text{font-family:var(--ff-san);font-size:13px;color:rgba(255,255,255,.88)}
+.tipoff__lock{font-size:16px}
+
+/* Floating 'back to top' arrow */
+#back-top{
+  position:fixed;bottom:28px;right:18px;
+  background:var(--blue);color:#fff;
+  width:42px;height:42px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 10px rgba(0,0,0,.3);
+  opacity:0;pointer-events:none;
+  transition:opacity .25s,transform .25s;
+  z-index:2000;
+}
+#back-top.visible{opacity:1;pointer-events:all}
+#back-top:hover{transform:translateY(-2px)}
+#back-top svg{width:20px;height:20px;fill:currentColor}
+
+/* Newsletter inline form */
+.nl-form-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.nl-input{
+  flex:1 1 200px;padding:9px 12px;
+  font-family:var(--ff-san);font-size:14px;
+  border:1px solid #9bbdd9;border-radius:2px;background:#fff;color:#121212;
+}
+.nl-input:focus{outline:2px solid var(--teal);outline-offset:0}
+.nl-input.error{border-color:var(--red)}
+.nl-input-btn{
+  background:var(--teal);color:#fff;
+  font-family:var(--ff-san);font-size:14px;font-weight:700;
+  padding:9px 20px;border-radius:2px;border:none;cursor:pointer;
+  transition:background .15s;
+}
+.nl-input-btn:hover{background:#004575}
+.nl-msg{
+  font-family:var(--ff-san);font-size:13px;
+  margin-top:6px;display:none;
+}
+.nl-msg.success{color:var(--env);display:block}
+.nl-msg.error-msg{color:var(--red);display:block}
+
+/* Footer layout */
+#ftr{
+  background:var(--blue);
+  color:rgba(255,255,255,.78);margin-top:0;
+}
+.ftr-top{border-bottom:1px solid rgba(255,255,255,.18);padding:14px 10px}
+.ftr-top-inner{
+  max-width:var(--max);margin:0 auto;
+  display:flex;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;gap:14px;
+}
+.ftr-tagline{
+  font-family:var(--ff-ser);font-size:16px;font-weight:600;
+  color:#fff;max-width:440px;line-height:1.4;
+}
+.ftr-signup-btn{
+  display:flex;align-items:center;gap:4px;
+  background:transparent;border:1px solid rgba(255,255,255,.4);
+  color:#fff;font-family:var(--ff-san);font-size:13px;font-weight:700;
+  padding:8px 16px;border-radius:2px;cursor:pointer;
+  transition:border-color .15s;
+}
+.ftr-signup-btn:hover{border-color:#fff}
+.ftr-nav-bar{border-bottom:1px solid rgba(255,255,255,.18);padding:0 10px}
+.ftr-nav-row{
+  display:flex;overflow-x:auto;scrollbar-width:none;
+  max-width:var(--max);margin:0 auto;
+}
+.ftr-nav-row::-webkit-scrollbar{display:none}
+.ftr-navpill{
+  flex-shrink:0;
+  font-family:var(--ff-san);font-size:14px;font-weight:700;
+  color:rgba(255,255,255,.82);
+  padding:10px 14px;border-bottom:3px solid transparent;
+  white-space:nowrap;transition:color .15s,border-color .15s;
+}
+.ftr-navpill:hover{color:#fff;text-decoration:none}
+.ftr-body{
+  max-width:var(--max);margin:0 auto;
+  padding:20px 10px;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
+}
+@media(max-width:900px){.ftr-body{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.ftr-body{grid-template-columns:1fr}}
+.ftr-col h3{
+  font-family:var(--ff-san);font-size:12px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.05em;
+  color:#fff;margin-bottom:10px;
+}
+.ftr-col ul{display:flex;flex-direction:column;gap:7px}
+.ftr-col ul a{
+  font-family:var(--ff-san);font-size:13px;
+  color:rgba(255,255,255,.6);transition:color .15s;
+}
+.ftr-col ul a:hover{color:#fff;text-decoration:none}
+.ftr-bottom{
+  max-width:var(--max);margin:0 auto;
+  padding:14px 10px 22px;
+  border-top:1px solid rgba(255,255,255,.18);
+  display:flex;flex-wrap:wrap;gap:10px;
+  align-items:center;justify-content:space-between;
+}
+.ftr-links{display:flex;flex-wrap:wrap;gap:6px 16px}
+.ftr-links a{
+  font-family:var(--ff-san);font-size:12px;
+  color:rgba(255,255,255,.5);transition:color .15s;
+}
+.ftr-links a:hover{color:rgba(255,255,255,.9);text-decoration:none}
+.ftr-copy{
+  font-family:var(--ff-san);font-size:12px;
+  color:rgba(255,255,255,.36);width:100%;
+}
+.ftr-backtop{
+  display:flex;align-items:center;justify-content:flex-end;gap:6px;
+  max-width:var(--max);margin:0 auto;padding:10px 10px 6px;
+  cursor:pointer;color:rgba(255,255,255,.6);
+  font-family:var(--ff-san);font-size:13px;font-weight:700;
+  transition:color .15s;
+}
+.ftr-backtop:hover{color:#fff}
+.ftr-backtop svg{width:16px;height:16px;fill:currentColor}
+</style>
+</head>
+<body>
+
+<!-- reading progress bar at the very top of the screen -->
+<div id="progress-bar" role="progressbar" aria-label="Page reading progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+
+<!-- skip link for screen readers, visible on tab focus -->
+<a href="#main" class="skip">Skip to main content</a>
+
+<!-- ═══════════════════════════════════
+     COOKIE BANNER
+═══════════════════════════════════ -->
+<div id="cookie-banner" role="dialog" aria-label="Cookie consent" aria-live="polite">
+  <p>Lorem ipsum dolor sit amet. Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore. <a href="#" style="color:#a8d3f7">Lorem ipsum</a>.</p>
+  <div class="cookie-btns">
+    <button class="cookie-btn cookie-btn--manage" id="cookie-manage">Lorem ipsum</button>
+    <button class="cookie-btn cookie-btn--accept" id="cookie-accept">Dolor sit amet</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     SEARCH OVERLAY
+═══════════════════════════════════ -->
+<!-- search modal (hidden by default) -->
+<div id="search-overlay" role="dialog" aria-modal="true" aria-label="Lorem Ipsum Dolor">
+  <div class="search-wrap">
+    <div class="search-input-row">
+      <label for="search-input" class="sr-only">Search query</label>
+      <input type="search" id="search-input" placeholder="Lorem Ipsum" autocomplete="off" enterkeyhint="search"/>
+      <button class="search-close" id="search-close" aria-label="Close search">✕</button>
+    </div>
+    <p style="font-family:var(--ff-san);font-size:13px;color:rgba(255,255,255,.5);margin-bottom:10px">Lorem ipsum sit</p>
+    <div class="search-hints" aria-label="Suggested searches">
+      <span role="button" tabindex="0">Lorem ipsum</span>
+      <span role="button" tabindex="0">Dolor sit amet</span>
+      <span role="button" tabindex="0">Consectetur</span>
+      <span role="button" tabindex="0">Adipiscing elit</span>
+      <span role="button" tabindex="0">Sed do eiusmod</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     MOBILE NAV OVERLAY
+═══════════════════════════════════ -->
+<!-- mobile slide-out menu - hides off screen left -->
+<nav id="mobile-nav" aria-label="Mobile navigation" aria-hidden="true">
+  <div class="mnav-header">
+    <span class="mnav-logo">Lorem Ipsum</span>
+    <button class="mnav-close" id="mnav-close" aria-label="Close navigation">✕</button>
+  </div>
+  <div class="mnav-actions">
+    <a href="#" class="mnav-btn mnav-btn--yellow">Lorem ipsum</a>
+    <a href="#" class="mnav-btn mnav-btn--ghost">Dolor sit</a>
+    <a href="#" class="mnav-btn mnav-btn--ghost">Amet</a>
+  </div>
+  <div class="mnav-section">
+    <a href="#" class="mnav-link active" aria-current="page">Lorem</a>
+    <a href="#" class="mnav-link mnav-link--news">Ipsum</a>
+    <a href="#" class="mnav-link mnav-link--opinion">Dolor</a>
+    <a href="#" class="mnav-link mnav-link--sport">Sit</a>
+    <a href="#" class="mnav-link mnav-link--culture">Amet</a>
+    <a href="#" class="mnav-link mnav-link--life">Consectetur</a>
+  </div>
+  <p class="mnav-sub">Lorem ipsum</p>
+  <div class="mnav-section">
+    <a href="#" class="mnav-link">Adipiscing</a>
+    <a href="#" class="mnav-link">Elit</a>
+    <a href="#" class="mnav-link">Sed do</a>
+    <a href="#" class="mnav-link">Eiusmod</a>
+    <a href="#" class="mnav-link">Tempor</a>
+    <a href="#" class="mnav-link">Incididunt</a>
+    <a href="#" class="mnav-link">Ut labore</a>
+    <a href="#" class="mnav-link">Et dolore</a>
+    <a href="#" class="mnav-link">Magna</a>
+    <a href="#" class="mnav-link">Aliqua</a>
+    <a href="#" class="mnav-link">Ut enim</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════
+     HEADER
+═══════════════════════════════════ -->
+<!-- site header - sticky so it stays at the top when scrolling -->
+<header id="hdr" role="banner">
+  <!-- Row 1 -->
+  <div class="hd-row1">
+    <nav class="hd-primary" aria-label="Main sections">
+      <a href="#" class="hd-pill active" aria-current="page">Lorem</a>
+      <a href="#" class="hd-pill hd-pill--news">Ipsum</a>
+      <a href="#" class="hd-pill hd-pill--opinion">Dolor</a>
+      <a href="#" class="hd-pill hd-pill--sport">Sit</a>
+      <a href="#" class="hd-pill hd-pill--culture">Amet</a>
+      <a href="#" class="hd-pill hd-pill--life">Consectetur</a>
+      <div class="hd-dot-wrap">
+        <button class="hd-dot" id="edition-btn" aria-label="Switch edition" aria-expanded="false" aria-haspopup="listbox">Lor</button>
+        <div id="edition-dropdown" role="listbox" aria-label="Edition selector">
+          <a href="#" class="ed-item current" role="option" aria-selected="true"><span class="ed-flag">🇪🇺</span><span class="ed-name">Lorem</span></a>
+          <a href="#" class="ed-item" role="option" aria-selected="false"><span class="ed-flag">🇬🇧</span><span class="ed-name">Ipsum</span></a>
+          <a href="#" class="ed-item" role="option" aria-selected="false"><span class="ed-flag">🇺🇸</span><span class="ed-name">Dolor</span></a>
+          <a href="#" class="ed-item" role="option" aria-selected="false"><span class="ed-flag">🇦🇺</span><span class="ed-name">Sit</span></a>
+          <a href="#" class="ed-item" role="option" aria-selected="false"><span class="ed-flag">🌍</span><span class="ed-name">Amet</span></a>
+        </div>
+      </div>
+    </nav>
+    <div style="display:flex;align-items:center">
+      <div class="hd-masthead">
+        <span class="hd-edition-text">Lor <span aria-hidden="true">›</span></span>
+        <a href="/" class="hd-logo-text" aria-label="Lorem Ipsum – return to homepage">Lorem Ipsum</a>
+      </div>
+      <div class="hd-controls">
+        <button class="hd-ico" id="search-open" aria-label="Open search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        </button>
+        <button class="hd-theme" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+        <button class="hd-ham" id="ham-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-nav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- Row 2 -->
+  <div class="hd-row2">
+    <nav class="hd-secondary" aria-label="Topic navigation">
+      <a href="#">Adipiscing</a>
+      <a href="#">Elit</a>
+      <a href="#">Sed do</a>
+      <a href="#">Eiusmod</a>
+      <a href="#">Tempor</a>
+      <a href="#">Incididunt</a>
+      <a href="#">Ut labore</a>
+      <a href="#">Et dolore</a>
+      <a href="#">Magna</a>
+      <a href="#">Aliqua</a>
+      <a href="#">Ut enim</a>
+    </nav>
+  </div>
+</header>
+
+<!-- breaking news marquee banner -->
+<div class="breaking" role="alert" aria-live="polite" aria-label="Breaking news">
+  <span class="live-chip"><span class="live-dot" aria-hidden="true"></span>Live</span>
+  <div class="ticker-wrap">
+    <div class="ticker-text" aria-label="Ticker: Lorem ipsum dolor sit amet consectetur adipiscing elit breaking news">
+      <span>Lorem ipsum dolor sit amet – consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim</span>
+      <span>Lorem ipsum dolor sit amet – consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     MAIN CONTENT
+═══════════════════════════════════ -->
+<!-- main wrapper for all page content -->
+<main id="main" role="main">
+<div class="page">
+
+<!-- ══ NEWS ══ -->
+<section class="s-row" aria-labelledby="lbl-news">
+  <div class="s-label s-label--red" id="lbl-news">Lorem</div>
+  <div class="s-content">
+
+    <!-- Lead story grid -->
+    <div class="news-feat">
+      <article aria-labelledby="n1">
+        <span class="lbl-live">Live</span>
+        <span class="art__kicker art__kicker--red">Lorem ipsum</span>
+        <h2 class="art__h art__h--xl" id="n1">
+          <a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt labore et dolore magna aliqua</a>
+        </h2>
+        <p class="art__deck">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit.</p>
+        <p class="art__time">1h ago</p>
+      </article>
+      <article aria-labelledby="n1b">
+        <figure class="art__img"><img src="https://placehold.co/520x310/" alt="Lorem ipsum placeholder image" width="520" height="310" loading="eager" fetchpriority="high"/></figure>
+        <span class="art__kicker">Consectetur adipiscing</span>
+        <h3 class="art__h art__h--sm" id="n1b"><a href="#">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</a></h3>
+      </article>
+    </div>
+
+    <!-- 4-col row using css grid (.g4) -->
+    <div class="g4" style="margin-bottom:16px">
+      <article aria-labelledby="n2">
+        <figure class="art__img"><img src="https://placehold.co/340x204" alt="Lorem placeholder" width="340" height="204" loading="lazy"/></figure>
+        <span class="art__kicker">Lorem ipsum</span>
+        <h3 class="art__h art__h--sm" id="n2"><a href="#">Consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore</a></h3>
+        <p class="art__time">2h ago</p>
+      </article>
+      <article aria-labelledby="n3">
+        <figure class="art__img"><img src="https://placehold.co/340x204" alt="Lorem placeholder" width="340" height="204" loading="lazy"/></figure>
+        <span class="art__kicker">Dolor sit amet</span>
+        <h3 class="art__h art__h--sm" id="n3"><a href="#">Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi</a></h3>
+        <p class="art__time">3h ago</p>
+      </article>
+      <article aria-labelledby="n4">
+        <figure class="art__img"><img src="https://placehold.co/340x204" alt="Lorem placeholder" width="340" height="204" loading="lazy"/></figure>
+        <span class="art__kicker">Adipiscing elit</span>
+        <h3 class="art__h art__h--sm" id="n4"><a href="#">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum</a></h3>
+        <p class="art__time">4h ago</p>
+      </article>
+      <article aria-labelledby="n5">
+        <figure class="art__img"><img src="https://placehold.co/340x204" alt="Lorem placeholder" width="340" height="204" loading="lazy"/></figure>
+        <span class="art__kicker art__kicker--red">Analysis</span>
+        <h3 class="art__h art__h--sm" id="n5"><a href="#">Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia</a></h3>
+        <p class="art__time">4h ago</p>
+      </article>
+    </div>
+
+    <!-- Long feature taking full width -->
+    <article style="padding:12px 0;border-top:1px solid var(--border);margin-bottom:12px" aria-labelledby="n6">
+      <span class="art__kicker">Analysis</span>
+      <h2 class="art__h art__h--lg" id="n6">
+        <a href="#">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores</a>
+      </h2>
+      <p class="art__deck">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa quae ab illo inventore veritatis.</p>
+      <p class="art__byline"><a href="#" style="color:var(--teal)">Lorem Columnist</a></p>
+      <figure class="art__img" style="margin-top:8px"><img src="https://placehold.co/780x390" alt="Lorem feature image" width="780" height="390" loading="lazy"/></figure>
+      <div class="g3" style="margin-top:12px">
+        <div>
+          <span class="art__kicker">Lorem</span>
+          <h4 class="art__h art__h--xs"><a href="#">At vero eos et accusamus et iusto odio dignissimos ducimus blanditiis</a></h4>
+        </div>
+        <div>
+          <span class="art__kicker art__kicker--red">Ipsum</span>
+          <h4 class="art__h art__h--xs"><a href="#">Nam libero tempore cum soluta nobis eligendi optio cumque nihil</a></h4>
+        </div>
+        <div>
+          <span class="art__kicker">Dolor</span>
+          <h4 class="art__h art__h--xs"><a href="#">Temporibus autem quibusdam et aut officiis debitis rerum necessitatibus</a></h4>
+        </div>
+      </div>
+    </article>
+
+    <!-- Mixed row with smaller sidecards -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;border-top:1px solid var(--border);padding-top:12px;margin-bottom:12px">
+      <div>
+        <article class="art--h" aria-labelledby="n8">
+          <figure class="art__img"><img src="https://placehold.co/180x135" alt="Lorem placeholder" width="180" height="135" loading="lazy"/></figure>
+          <div>
+            <span class="art__kicker">Lorem ipsum</span>
+            <h3 class="art__h art__h--xs" id="n8"><a href="#">Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse</a></h3>
+            <p class="art__time">6h ago</p>
+          </div>
+        </article>
+        <article class="art--h" aria-labelledby="n9">
+          <figure class="art__img"><img src="https://placehold.co/180x135" alt="Lorem placeholder" width="180" height="135" loading="lazy"/></figure>
+          <div>
+            <span class="art__kicker">Dolor sit</span>
+            <h3 class="art__h art__h--xs" id="n9"><a href="#">Itaque earum rerum hic tenetur a sapiente delectus ut aut reiciendis</a></h3>
+            <p class="art__time">7h ago</p>
+          </div>
+        </article>
+      </div>
+      <div>
+        <article aria-labelledby="n10">
+          <span class="art__kicker art__kicker--red">Consectetur</span>
+          <h3 class="art__h art__h--sm" id="n10"><a href="#">Quis nostrum exercitationem ullam corporis suscipit laboriosam nisi</a></h3>
+        </article>
+        <article style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border)" aria-labelledby="n11">
+          <figure class="art__img"><img src="https://placehold.co/340x204" alt="Lorem placeholder" width="340" height="204" loading="lazy"/></figure>
+          <span class="art__kicker">Adipiscing</span>
+          <h3 class="art__h art__h--sm" id="n11"><a href="#">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur</a></h3>
+          <p class="art__deck">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+          <p class="art__time">7h ago</p>
+        </article>
+      </div>
+    </div>
+
+    <!-- 4-col row at the bottom of the section -->
+    <div class="g4" style="border-top:1px solid var(--border);padding-top:12px">
+      <article aria-labelledby="n12">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker">Lorem ipsum</span>
+        <h3 class="art__h art__h--xs" id="n12"><a href="#">Quia dolor sit amet consectetur adipiscing elit sed do eiusmod labore</a></h3>
+        <p class="art__time">8h ago</p>
+      </article>
+      <article aria-labelledby="n13">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker art__kicker--red">Dolor</span>
+        <h3 class="art__h art__h--xs" id="n13"><a href="#">Ut labore et dolore magnam aliquam quaerat voluptatem ullam corporis</a></h3>
+        <p class="art__time">8h ago</p>
+      </article>
+      <article aria-labelledby="n14">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker">Ipsum</span>
+        <h3 class="art__h art__h--xs" id="n14"><a href="#">Accusantium doloremque laudantium totam rem aperiam eaque ipsa quae</a></h3>
+        <p class="art__time">9h ago</p>
+      </article>
+      <article aria-labelledby="n15">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker">Amet</span>
+        <h3 class="art__h art__h--xs" id="n15"><a href="#">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit</a></h3>
+        <p class="art__time">10h ago</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SPECIAL REPORT ══ -->
+<section class="s-row" aria-labelledby="lbl-special">
+  <div class="s-label" id="lbl-special">Lorem<br/>ipsum</div>
+  <div class="s-content">
+    <div class="special-layout">
+      <div>
+        <h2 class="art__h art__h--xl"><a href="#" style="color:#fff">Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor</a></h2>
+        <p class="special-deck">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      </div>
+      <figure><img src="https://placehold.co/500x320" alt="Special report placeholder" width="500" height="320" loading="lazy"/></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ══ IN FOCUS ══ -->
+<section class="s-row" aria-labelledby="lbl-focus">
+  <div class="s-label" id="lbl-focus">Dolor sit</div>
+  <div class="s-content">
+    <div style="border-top:1px solid var(--border);padding-top:8px;margin-bottom:8px">
+      <span class="art__kicker">Analysis</span>
+      <h2 class="art__h art__h--lg"><a href="#">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</a></h2>
+      <p class="art__deck">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+    <div class="g3" style="border-top:1px solid var(--border);padding-top:12px">
+      <article aria-labelledby="f2">
+        <figure class="art__img"><img src="https://placehold.co/320x192" alt="Lorem placeholder" width="320" height="192" loading="lazy"/></figure>
+        <span class="art__kicker">Lorem ipsum</span>
+        <h3 class="art__h art__h--xs" id="f2"><a href="#">Nemo enim ipsam voluptatem quia voluptas aspernatur aut odit aut fugit</a></h3>
+      </article>
+      <article aria-labelledby="f3">
+        <figure class="art__img"><img src="https://placehold.co/320x192" alt="Lorem placeholder" width="320" height="192" loading="lazy"/></figure>
+        <span class="art__kicker art__kicker--red">Consectetur</span>
+        <h3 class="art__h art__h--xs" id="f3"><a href="#">At vero eos et accusamus et iusto odio dignissimos ducimus blanditiis</a></h3>
+        <p class="art__time">5h ago</p>
+      </article>
+      <article aria-labelledby="f4">
+        <figure class="art__img"><img src="https://placehold.co/320x192" alt="Lorem placeholder" width="320" height="192" loading="lazy"/></figure>
+        <span class="art__kicker">Adipiscing</span>
+        <h3 class="art__h art__h--xs" id="f4"><a href="#">Nam libero tempore cum soluta nobis eligendi optio cumque nihil impedit</a></h3>
+        <p class="art__time">6h ago</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══ OPINION ══ -->
+<section class="s-row" aria-labelledby="lbl-opinion">
+  <div class="s-label s-label--amber" id="lbl-opinion">Amet lorem</div>
+  <div class="s-content">
+    <div class="op-row" aria-labelledby="op1">
+      <div>
+        <div class="art--op">
+          <h3 class="art__h" id="op1"><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore</a></h3>
+        </div>
+        <p class="op-name"><a href="#" style="color:var(--amber)">Lorem Ipsum</a></p>
+        <p class="art__deck" style="margin-top:6px">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p class="art__time">6h ago</p>
+      </div>
+      <div>
+        <div class="op-avatar"><img src="https://placehold.co/128x128" alt="" width="64" height="64" loading="lazy" aria-hidden="true"/></div>
+      </div>
+    </div>
+    <div class="op-row" aria-labelledby="op2">
+      <div>
+        <div class="art--op">
+          <h3 class="art__h" id="op2"><a href="#">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium</a></h3>
+        </div>
+        <p class="op-name"><a href="#" style="color:var(--amber)">Ipsum Writer</a></p>
+        <p class="art__deck" style="margin-top:6px">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit sed quia consequuntur magni.</p>
+        <p class="art__time">8h ago</p>
+      </div>
+      <div>
+        <div class="op-avatar"><img src="https://placehold.co/128x128" alt="" width="64" height="64" loading="lazy" aria-hidden="true"/></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- More opinion -->
+<section class="s-row" aria-labelledby="lbl-moreopinion">
+  <div class="s-label" id="lbl-moreopinion">Ipsum<br/>dolor</div>
+  <div class="s-content">
+    <div class="g4">
+      <article class="op-sm" aria-labelledby="mop1">
+        <div class="art--op"><h3 class="art__h" id="mop1"><a href="#">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod</a></h3></div>
+        <p class="op-name" style="font-size:13px"><a href="#" style="color:var(--amber)">Dolor Columnist</a></p>
+        <div class="op-avatar op-sm"><img src="https://placehold.co/96x96" alt="" width="48" height="48" loading="lazy" aria-hidden="true"/></div>
+        <p class="art__time">10h ago</p>
+      </article>
+      <article class="op-sm" aria-labelledby="mop2">
+        <div class="art--op"><h3 class="art__h" id="mop2"><a href="#">Ut enim ad minim veniam quis nostrud exercitation ullamco laboris</a></h3></div>
+        <p class="op-name" style="font-size:13px"><a href="#" style="color:var(--amber)">Sit Amet Writer</a></p>
+        <div class="op-avatar op-sm"><img src="https://placehold.co/96x96" alt="" width="48" height="48" loading="lazy" aria-hidden="true"/></div>
+        <p class="art__time">10h ago</p>
+      </article>
+      <article class="op-sm" aria-labelledby="mop3">
+        <div class="art--op"><h3 class="art__h" id="mop3"><a href="#">Nemo enim ipsam voluptatem quia voluptas aspernatur aut odit fugit</a></h3></div>
+        <p class="op-name" style="font-size:13px"><a href="#" style="color:var(--amber)">Consectetur Author</a></p>
+        <div class="op-avatar op-sm"><img src="https://placehold.co/96x96" alt="" width="48" height="48" loading="lazy" aria-hidden="true"/></div>
+        <p class="art__time">10h ago</p>
+      </article>
+      <article class="op-sm" aria-labelledby="mop4">
+        <div class="art--op"><h3 class="art__h" id="mop4"><a href="#">Duis aute irure dolor reprehenderit in voluptate velit esse cillum</a></h3></div>
+        <p class="op-name" style="font-size:13px"><a href="#" style="color:var(--amber)">Adipiscing Commenter</a></p>
+        <div class="op-avatar op-sm"><img src="https://placehold.co/96x96" alt="" width="48" height="48" loading="lazy" aria-hidden="true"/></div>
+        <p class="art__time">8h ago</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Editorials -->
+<section class="s-row" aria-labelledby="lbl-ed">
+  <div class="s-label" id="lbl-ed">Elit sed</div>
+  <div class="s-content">
+    <p class="editorial-kicker">Lorem Ipsum dolor</p>
+    <h2 class="editorial-h"><a href="#">Lorem ipsum dolor sit amet: consectetur adipiscing elit sed do eiusmod tempor incididunt</a></h2>
+    <p class="art__time" style="margin-top:6px">5h ago</p>
+  </div>
+</section>
+
+<!-- Cartoon -->
+<section class="s-row" aria-labelledby="lbl-cartoon">
+  <div class="s-label" id="lbl-cartoon">Tempor</div>
+  <div class="s-content">
+    <div class="cartoon-layout">
+      <div>
+        <p class="cartoon-credit">Lorem Ipsum</p>
+        <h2 class="cartoon-h">Dolor sit amet</h2>
+        <p class="cartoon-deck">Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </div>
+      <figure>
+        <img src="https://placehold.co/560x280" alt="Lorem ipsum dolor sit amet" width="560" height="280" loading="lazy"/>
+        <figcaption>'Lorem ipsum dolor sit amet, consectetur adipiscing elit…'</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SPORT ══ -->
+<section class="s-row" aria-labelledby="lbl-sport">
+  <div class="s-label s-label--green" id="lbl-sport">Incididunt</div>
+  <div class="s-content">
+    <div class="sport-feat" style="margin-bottom:12px">
+      <article aria-labelledby="sp1">
+        <span class="art__kicker art__kicker--green">Lorem Ipsum</span>
+        <h2 class="art__h art__h--xl" id="sp1">
+          <a href="#">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt labore</a>
+        </h2>
+        <p class="art__deck">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p class="art__time">7h ago</p>
+        <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border)">
+          <span class="art__kicker art__kicker--green" style="font-size:11px">Lorem Ipsum</span>
+          <h4 class="art__h art__h--xs"><a href="#">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit</a></h4>
+        </div>
+        <div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--border)">
+          <span class="art__kicker art__kicker--green" style="font-size:11px">Gallery</span>
+          <h4 class="art__h art__h--xs"><a href="#">At vero eos et accusamus et iusto odio dignissimos ducimus</a></h4>
+        </div>
+      </article>
+      <figure><img src="https://placehold.co/500x380" alt="Lorem ipsum dolor" width="500" height="380" loading="lazy"/></figure>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;border-top:1px solid var(--border);padding-top:12px;margin-bottom:12px">
+      <article aria-labelledby="sp2">
+        <span class="art__kicker art__kicker--green">Lorem Ipsum</span>
+        <h3 class="art__h art__h--md" id="sp2"><a href="#">Consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore</a></h3>
+        <p class="art__deck">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+        <figure class="art__img" style="margin-top:8px"><img src="https://placehold.co/380x228" alt="Lorem ipsum dolor" width="380" height="228" loading="lazy"/></figure>
+        <div style="margin-top:8px">
+          <span class="art__kicker art__kicker--green" style="font-size:11px">Lorem ipsum</span>
+          <h4 class="art__h art__h--xs"><a href="#">Sed ut perspiciatis unde omnis iste natus error voluptatem accusantium</a></h4>
+        </div>
+      </article>
+      <div>
+        <article class="art--h" aria-labelledby="sp3">
+          <div>
+            <span class="art__kicker art__kicker--green">Lorem Ipsum</span>
+            <h3 class="art__h art__h--xs" id="sp3"><a href="#">Nemo enim ipsam voluptatem quia voluptas aspernatur odit fugit</a></h3>
+            <p class="art__time">6h ago</p>
+          </div>
+          <figure class="art__img"><img src="https://placehold.co/140x140" alt="Lorem placeholder" width="140" height="140" loading="lazy"/></figure>
+        </article>
+        <article class="art--h" aria-labelledby="sp4">
+          <div>
+            <span class="art__kicker art__kicker--green">Lorem Ipsum</span>
+            <h3 class="art__h art__h--xs" id="sp4"><a href="#">At vero eos accusamus iusto odio dignissimos ducimus blanditiis</a></h3>
+            <p class="art__time">7h ago</p>
+          </div>
+          <figure class="art__img"><img src="https://placehold.co/140x140" alt="Lorem Ipsum" width="140" height="140" loading="lazy"/></figure>
+        </article>
+      </div>
+    </div>
+
+    <article style="border-top:1px solid var(--border);padding-top:12px;margin-bottom:12px" aria-labelledby="sp5">
+      <span class="art__kicker art__kicker--green">Lorem Ipsum</span>
+      <h3 class="art__h art__h--lg" id="sp5">
+        <a href="#">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore dolore</a>
+      </h3>
+      <p class="art__deck">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <figure class="art__img" style="margin-top:8px"><img src="https://placehold.co/760x380" alt="Lorem ipsum dolor" width="760" height="380" loading="lazy"/></figure>
+      <p class="art__time">7h ago</p>
+    </article>
+  </div>
+</section>
+
+<!-- More sport -->
+<section class="s-row" aria-labelledby="lbl-moresport">
+  <div class="s-label" id="lbl-moresport">Ut labore</div>
+  <div class="s-content">
+    <div class="g2">
+      <article class="art--h" aria-labelledby="ms1">
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <div>
+          <span class="art__kicker art__kicker--green">Lorem ipsum</span>
+          <h3 class="art__h art__h--xs" id="ms1"><a href="#">Consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore dolore</a></h3>
+          <p class="art__byline" style="color:var(--muted);font-size:12px">Lorem Byline</p>
+          <p class="art__time">3h ago</p>
+        </div>
+      </article>
+      <article class="art--h" aria-labelledby="ms2">
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <div>
+          <span class="art__kicker art__kicker--green">Lorem Sport</span>
+          <h3 class="art__h art__h--xs" id="ms2"><a href="#">Ut enim ad minim veniam quis nostrud exercitation ullamco laboris</a></h3>
+          <p class="art__time">4h ago</p>
+        </div>
+      </article>
+      <article class="art--h" style="border-bottom:none" aria-labelledby="ms3">
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <div>
+          <span class="art__kicker art__kicker--green">Lorem League</span>
+          <h3 class="art__h art__h--xs" id="ms3"><a href="#">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit</a></h3>
+          <p class="art__time">5h ago</p>
+        </div>
+      </article>
+      <article class="art--h" style="border-bottom:none" aria-labelledby="ms4">
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <div>
+          <span class="art__kicker art__kicker--green">Lorem Extract</span>
+          <h3 class="art__h art__h--xs" id="ms4"><a href="#">Duis aute irure dolor reprehenderit in voluptate velit esse cillum</a></h3>
+          <p class="art__time">12h ago</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FEATURES ══ -->
+<section class="s-row" aria-labelledby="lbl-features">
+  <div class="s-label" id="lbl-features">Et dolore</div>
+  <div class="s-content">
+    <div class="g2" style="margin-bottom:12px">
+      <a class="feat-card" href="#" aria-labelledby="feat1">
+        <img src="https://placehold.co/480x580" alt="Lorem feature portrait 1" width="480" height="580" loading="lazy"/>
+        <div class="feat-card__body">
+          <p class="feat-card__kicker">Lorem ipsum</p>
+          <h3 class="feat-card__h" id="feat1">Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor</h3>
+          <p class="feat-card__time">12h ago</p>
+        </div>
+      </a>
+      <a class="feat-card" href="#" aria-labelledby="feat2">
+        <img src="https://placehold.co/480x580" alt="Lorem feature portrait 2" width="480" height="580" loading="lazy"/>
+        <div class="feat-card__body">
+          <p class="feat-card__kicker">Consectetur</p>
+          <h3 class="feat-card__h" id="feat2">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi aliquip</h3>
+          <p class="feat-card__time">12h ago</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- More features -->
+<section class="s-row" aria-labelledby="lbl-morefeat">
+  <div class="s-label" id="lbl-morefeat">Magna<br/>aliqua</div>
+  <div class="s-content">
+    <div class="g2">
+      <article class="art--h" aria-labelledby="mf1">
+        <figure class="art__img"><img src="https://placehold.co" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <div>
+          <span class="art__kicker art__kicker--pink">Lorem</span>
+          <h3 class="art__h art__h--xs" id="mf1"><a href="#">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit fugit</a></h3>
+          <p class="art__time">2h ago</p>
+        </div>
+      </article>
+      <article class="art--h" aria-labelledby="mf2">
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <div>
+          <span class="art__kicker art__kicker--brown">Ipsum</span>
+          <h3 class="art__h art__h--xs" id="mf2"><a href="#">At vero eos et accusamus et iusto odio dignissimos ducimus blanditiis</a></h3>
+          <div class="art__stars">★★★★★</div>
+          <p class="art__time">2h ago</p>
+        </div>
+      </article>
+      <article class="art--h" aria-labelledby="mf3">
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <div>
+          <span class="art__kicker art__kicker--pink">Dolor</span>
+          <h3 class="art__h art__h--xs" id="mf3"><a href="#">Nam libero tempore soluta nobis eligendi optio cumque nihil impedit</a></h3>
+          <p class="art__time">8h ago</p>
+        </div>
+      </article>
+      <article class="art--h" aria-labelledby="mf4">
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <div>
+          <span class="art__kicker">Sit amet</span>
+          <h3 class="art__h art__h--xs" id="mf4"><a href="#">Temporibus autem quibusdam et aut officiis debitis rerum necessitatibus</a></h3>
+          <p class="art__time">8h ago</p>
+        </div>
+      </article>
+      <article class="art--h" style="border-bottom:none" aria-labelledby="mf5">
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <div>
+          <span class="art__kicker art__kicker--pink">Consectetur</span>
+          <h3 class="art__h art__h--xs" id="mf5"><a href="#">Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse</a></h3>
+          <p class="art__time">12h ago</p>
+        </div>
+      </article>
+      <article class="art--h" style="border-bottom:none" aria-labelledby="mf6">
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <div>
+          <span class="art__kicker art__kicker--green">Adipiscing</span>
+          <h3 class="art__h art__h--xs" id="mf6"><a href="#">Itaque earum rerum hic tenetur a sapiente delectus aut reiciendis</a></h3>
+          <p class="art__time">12h ago</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MORE TOP STORIES ══ -->
+<section class="s-row" aria-labelledby="lbl-moretop">
+  <div class="s-label" id="lbl-moretop">Ut enim<br/>ad minim</div>
+  <div class="s-content">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:12px">
+      <article aria-labelledby="mt1">
+        <span class="lbl-excl">Exclusive</span>
+        <h2 class="art__h art__h--lg" id="mt1"><a href="#">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt</a></h2>
+        <p class="art__deck">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
+        <p class="art__time">7h ago</p>
+      </article>
+      <figure><img src="https://placehold.co/440x320" alt="Lorem exclusive story image" width="440" height="320" loading="lazy"/></figure>
+    </div>
+    <div class="g4" style="border-top:1px solid var(--border);padding-top:12px">
+      <article aria-labelledby="mt2">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker">Lorem</span>
+        <h3 class="art__h art__h--xs" id="mt2"><a href="#">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit fugit</a></h3>
+        <p class="art__time">9h ago</p>
+      </article>
+      <article aria-labelledby="mt3">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker">Ipsum</span>
+        <h3 class="art__h art__h--xs" id="mt3"><a href="#">At vero eos et accusamus et iusto odio dignissimos ducimus blanditiis</a></h3>
+        <p class="art__time">9h ago</p>
+      </article>
+      <article aria-labelledby="mt4">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker">Dolor</span>
+        <h3 class="art__h art__h--xs" id="mt4"><a href="#">Nam libero tempore cum soluta nobis eligendi optio cumque nihil impedit</a></h3>
+        <p class="art__time">9h ago</p>
+      </article>
+      <article aria-labelledby="mt5">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker art__kicker--red">Sit amet</span>
+        <h3 class="art__h art__h--xs" id="mt5"><a href="#">Temporibus autem quibusdam aut officiis debitis rerum necessitatibus</a></h3>
+        <p class="art__time">10h ago</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CLIMATE CRISIS ══ -->
+<section class="s-row" aria-labelledby="lbl-climate">
+  <div class="s-label s-label--env" id="lbl-climate">Veniam &amp; quis nostrud</div>
+  <div class="s-content">
+    <div class="g4">
+      <article aria-labelledby="cl1">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem environment" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker art__kicker--env">Lorem ipsum</span>
+        <h3 class="art__h art__h--xs" id="cl1"><a href="#">Consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore</a></h3>
+      </article>
+      <article aria-labelledby="cl2">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem environment" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker art__kicker--env">Dolor sit</span>
+        <h3 class="art__h art__h--xs" id="cl2"><a href="#">Nemo enim ipsam voluptatem quia voluptas aspernatur aut odit fugit</a></h3>
+      </article>
+      <article aria-labelledby="cl3">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem environment" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker art__kicker--env">Amet lorem</span>
+        <h3 class="art__h art__h--xs" id="cl3"><a href="#">At vero eos accusamus et iusto odio dignissimos ducimus blanditiis praesentium</a></h3>
+      </article>
+      <article aria-labelledby="cl4">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem environment" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker art__kicker--env">Ipsum dolor</span>
+        <h3 class="art__h art__h--xs" id="cl4"><a href="#">Nam libero tempore soluta nobis eligendi optio cumque nihil impedit quo</a></h3>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══ UK NEWS ══ -->
+<section class="s-row" aria-labelledby="lbl-uk">
+  <div class="s-label" id="lbl-uk">Exercitation</div>
+  <div class="s-content">
+    <div style="display:flex;flex-direction:column;gap:0">
+      <article style="padding:8px 0;border-bottom:1px solid var(--border)" aria-labelledby="uk1">
+        <span class="art__kicker">Lorem ipsum</span>
+        <h3 class="art__h art__h--sm" id="uk1"><a href="#">Consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore dolore</a></h3>
+        <p class="art__time">5h ago</p>
+      </article>
+      <article style="padding:8px 0;border-bottom:1px solid var(--border)" aria-labelledby="uk2">
+        <span class="art__kicker">Dolor sit</span>
+        <h3 class="art__h art__h--sm" id="uk2"><a href="#">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit</a></h3>
+        <p class="art__time">5h ago</p>
+      </article>
+      <article style="padding:8px 0;border-bottom:1px solid var(--border)" aria-labelledby="uk3">
+        <span class="art__kicker">Amet lorem</span>
+        <h3 class="art__h art__h--sm" id="uk3"><a href="#">At vero eos accusamus iusto odio dignissimos ducimus blanditiis praesentium</a></h3>
+        <p class="art__time">6h ago</p>
+      </article>
+      <article style="padding:8px 0" aria-labelledby="uk4">
+        <span class="art__kicker">Ipsum dolor</span>
+        <h3 class="art__h art__h--sm" id="uk4"><a href="#">Nam libero tempore soluta nobis eligendi optio cumque nihil impedit quo</a></h3>
+        <p class="art__time">7h ago</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WORLD NEWS ══ -->
+<section class="s-row" aria-labelledby="lbl-world">
+  <div class="s-label" id="lbl-world">Ullamco</div>
+  <div class="s-content">
+    <div style="display:flex;flex-direction:column;gap:0">
+      <article style="padding:8px 0;border-bottom:1px solid var(--border)" aria-labelledby="wn1">
+        <span class="art__kicker">Lorem</span>
+        <h3 class="art__h art__h--sm" id="wn1"><a href="#">Consectetur adipiscing elit sed do eiusmod tempor incididunt labore dolore magna</a></h3>
+        <p class="art__time">4h ago</p>
+      </article>
+      <article style="padding:8px 0;border-bottom:1px solid var(--border)" aria-labelledby="wn2">
+        <span class="art__kicker">Ipsum</span>
+        <h3 class="art__h art__h--sm" id="wn2"><a href="#">Nemo enim ipsam voluptatem quia voluptas sit aspernatur odit fugit</a></h3>
+        <p class="art__time">4h ago</p>
+      </article>
+      <article style="padding:8px 0;border-bottom:1px solid var(--border)" aria-labelledby="wn3">
+        <span class="art__kicker">Dolor</span>
+        <h3 class="art__h art__h--sm" id="wn3"><a href="#">At vero eos accusamus et iusto odio dignissimos ducimus blanditiis</a></h3>
+        <p class="art__time">5h ago</p>
+      </article>
+      <article style="padding:8px 0" aria-labelledby="wn4">
+        <span class="art__kicker">Sit amet</span>
+        <h3 class="art__h art__h--sm" id="wn4"><a href="#">Nam libero tempore soluta nobis eligendi optio cumque nihil impedit</a></h3>
+        <p class="art__time">5h ago</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Tip us off -->
+<div class="tipoff" role="complementary" aria-label="Tip us off securely">
+  <span class="tipoff__label">Laboris nisi</span>
+  <span class="tipoff__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</span>
+  <span class="tipoff__lock" aria-hidden="true">🔒</span>
+</div>
+
+<!-- ══ PAID CONTENT ══ -->
+<!-- special section for sponsored layout -->
+<div class="paid-band" role="complementary" aria-label="Paid content from Guardian Labs">
+  <div class="paid-inner">
+    <div>
+      <div class="paid-logo-circle" aria-label="The Guardian Labs">
+        <span>Lorem<br/>Ipsum<br/>Dolor</span>
+      </div>
+      <p class="paid-tag">Aliquip ex</p>
+      <button class="paid-about-btn" aria-expanded="false" id="paid-about">Commodo <span aria-hidden="true">▾</span></button>
+      <p class="paid-name">Lorem Ipsum</p>
+    </div>
+    <article aria-labelledby="pc1">
+      <h3 class="paid-art__h" id="pc1"><a href="#">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod</a></h3>
+      <div class="paid-art__img"><img src="https://placehold.co/300x200" alt="Lorem paid content illustration 1" width="300" height="200" loading="lazy"/></div>
+    </article>
+    <article aria-labelledby="pc2">
+      <h3 class="paid-art__h" id="pc2"><a href="#">Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi</a></h3>
+      <div class="paid-art__img"><img src="https://placehold.co/300x200" alt="Lorem paid content illustration 2" width="300" height="200" loading="lazy"/></div>
+    </article>
+    <article aria-labelledby="pc3">
+      <h3 class="paid-art__h" id="pc3"><a href="#">Duis aute irure dolor reprehenderit in voluptate velit esse cillum dolore</a></h3>
+      <div class="paid-art__img"><img src="https://placehold.co/300x200" alt="Lorem paid content illustration 3" width="300" height="200" loading="lazy"/></div>
+    </article>
+    <article aria-labelledby="pc4">
+      <h3 class="paid-art__h" id="pc4"><a href="#">Excepteur sint occaecat cupidatat non proident sunt in culpa officia deserunt</a></h3>
+      <div class="paid-art__img"><img src="https://placehold.co/300x200" alt="Lorem paid content illustration 4" width="300" height="200" loading="lazy"/></div>
+    </article>
+    <div class="paid-footer">Paid for by <strong>Lorem Ipsum Corp</strong></div>
+  </div>
+</div>
+
+<!-- ══ CULTURE ══ -->
+<section class="s-row" aria-labelledby="lbl-culture">
+  <div class="s-label s-label--brown" id="lbl-culture">Consequat</div>
+  <div class="s-content">
+    <div class="culture-hero" style="margin-bottom:12px">
+      <a class="feat-card" href="#" aria-labelledby="cu1">
+        <img src="https://placehold.co/500x420" alt="Lorem culture hero 1" width="500" height="420" loading="lazy"/>
+        <div class="feat-card__body">
+          <p class="feat-card__kicker">Lorem ipsum</p>
+          <h3 class="feat-card__h" id="cu1">Consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore dolore</h3>
+        </div>
+      </a>
+      <a class="feat-card" href="#" aria-labelledby="cu2">
+        <img src="https://placehold.co/500x420" alt="Lorem culture hero 2" width="500" height="420" loading="lazy"/>
+        <div class="feat-card__body">
+          <p class="feat-card__kicker">The big idea</p>
+          <h3 class="feat-card__h" id="cu2">Lorem ipsum dolor sit amet consectetur adipiscing elit</h3>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- What to watch -->
+<section class="s-row" aria-labelledby="lbl-watch">
+  <div class="s-label" id="lbl-watch">Duis aute<br/>irure</div>
+  <div class="s-content">
+    <div class="g4">
+      <article aria-labelledby="ww1">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker art__kicker--muted">Lorem review</span>
+        <h3 class="art__h art__h--xs" id="ww1"><a href="#">Consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore</a></h3>
+      </article>
+      <article aria-labelledby="ww2">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker art__kicker--brown">Lorem film</span>
+        <h3 class="art__h art__h--xs" id="ww2"><a href="#">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit fugit</a></h3>
+      </article>
+      <article aria-labelledby="ww3">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker art__kicker--brown">Lorem review</span>
+        <h3 class="art__h art__h--xs" id="ww3"><a href="#">At vero eos accusamus iusto odio dignissimos ducimus blanditiis</a></h3>
+      </article>
+      <article aria-labelledby="ww4">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker art__kicker--muted">Lorem ipsum</span>
+        <h3 class="art__h art__h--xs" id="ww4"><a href="#">Nam libero tempore soluta nobis eligendi optio cumque nihil impedit</a></h3>
+        <p class="art__byline" style="color:var(--teal);font-size:12px">Lorem Ipsum</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- What to listen to -->
+<section class="s-row" aria-labelledby="lbl-listen">
+  <div class="s-label" id="lbl-listen">Dolor in<br/>reprehenderit</div>
+  <div class="s-content">
+    <div class="g4">
+      <article aria-labelledby="wl1">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker art__kicker--muted">Lorem playlist</span>
+        <h3 class="art__h art__h--xs" id="wl1"><a href="#">Consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore</a></h3>
+      </article>
+      <article aria-labelledby="wl2">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker art__kicker--brown">Lorem music</span>
+        <h3 class="art__h art__h--xs" id="wl2"><a href="#">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit</a></h3>
+      </article>
+      <article aria-labelledby="wl3">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker art__kicker--brown">Lorem ipsum</span>
+        <h3 class="art__h art__h--xs" id="wl3"><a href="#">At vero eos accusamus iusto odio dignissimos ducimus blanditiis</a></h3>
+      </article>
+      <article aria-labelledby="wl4">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker art__kicker--muted">Lorem review</span>
+        <h3 class="art__h art__h--xs" id="wl4"><a href="#">Nam libero tempore soluta nobis eligendi optio cumque nihil impedit</a></h3>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- What to read -->
+<section class="s-row" aria-labelledby="lbl-read">
+  <div class="s-label" id="lbl-read">In voluptate<br/>velit</div>
+  <div class="s-content">
+    <div class="g2">
+      <article class="art--h" aria-labelledby="wr1">
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <div>
+          <span class="art__kicker art__kicker--brown">Lorem essays</span>
+          <h3 class="art__h art__h--xs" id="wr1"><a href="#">Consectetur adipiscing elit sed eiusmod tempor incididunt ut labore</a></h3>
+        </div>
+      </article>
+      <article class="art--h" aria-labelledby="wr2">
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <div>
+          <span class="art__kicker art__kicker--brown">Lorem fiction</span>
+          <h3 class="art__h art__h--xs" id="wr2"><a href="#">Nemo enim ipsam voluptatem quia voluptas aspernatur aut odit fugit</a></h3>
+        </div>
+      </article>
+      <article class="art--h" style="border-bottom:none" aria-labelledby="wr3">
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <div>
+          <span class="art__kicker art__kicker--brown">Lorem roundup</span>
+          <h3 class="art__h art__h--xs" id="wr3"><a href="#">At vero eos et accusamus iusto odio dignissimos ducimus blanditiis</a></h3>
+        </div>
+      </article>
+      <article class="art--h" style="border-bottom:none" aria-labelledby="wr4">
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <div>
+          <span class="art__kicker art__kicker--brown">Lorem fiction</span>
+          <h3 class="art__h art__h--xs" id="wr4"><a href="#">Nam libero tempore soluta nobis eligendi optio cumque nihil impedit</a></h3>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- What to play -->
+<section class="s-row" aria-labelledby="lbl-play">
+  <div class="s-label" id="lbl-play">Esse cillum<br/>dolore</div>
+  <div class="s-content">
+    <div class="g2">
+      <article class="art--h" aria-labelledby="wp1">
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <div>
+          <span class="art__kicker">Lorem games</span>
+          <h3 class="art__h art__h--xs" id="wp1"><a href="#">Consectetur adipiscing elit sed eiusmod tempor incididunt ut labore</a></h3>
+        </div>
+      </article>
+      <article class="art--h" aria-labelledby="wp2">
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <div>
+          <span class="art__kicker">Lorem awards</span>
+          <h3 class="art__h art__h--xs" id="wp2"><a href="#">Nemo enim ipsam voluptatem quia voluptas aspernatur aut odit fugit</a></h3>
+        </div>
+      </article>
+      <article class="art--h" style="border-bottom:none" aria-labelledby="wp3">
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <div>
+          <span class="art__kicker">Lorem retro</span>
+          <h3 class="art__h art__h--xs" id="wp3"><a href="#">At vero eos accusamus iusto odio dignissimos ducimus blanditiis</a></h3>
+        </div>
+      </article>
+      <article class="art--h" style="border-bottom:none" aria-labelledby="wp4">
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <div>
+          <span class="art__kicker">Lorem sci-fi</span>
+          <h3 class="art__h art__h--xs" id="wp4"><a href="#">Nam libero tempore soluta nobis eligendi optio cumque nihil impedit</a></h3>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- More culture -->
+<section class="s-row" aria-labelledby="lbl-moreculture">
+  <div class="s-label" id="lbl-moreculture">Eu fugiat<br/>nulla</div>
+  <div class="s-content">
+    <div class="g4">
+      <article aria-labelledby="mc1">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker">Lorem cartoon</span>
+        <h3 class="art__h art__h--xs" id="mc1"><a href="#">Consectetur adipiscing elit eiusmod tempor incididunt labore dolore</a></h3>
+      </article>
+      <article aria-labelledby="mc2">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker">Lorem art</span>
+        <h3 class="art__h art__h--xs" id="mc2"><a href="#">Nemo enim ipsam voluptatem quia voluptas aspernatur aut odit fugit</a></h3>
+      </article>
+      <article aria-labelledby="mc3">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker">Lorem photo</span>
+        <h3 class="art__h art__h--xs" id="mc3"><a href="#">At vero eos accusamus iusto odio dignissimos ducimus blanditiis</a></h3>
+      </article>
+      <article aria-labelledby="mc4">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker">Lorem celebrity</span>
+        <h3 class="art__h art__h--xs" id="mc4"><a href="#">Nam libero tempore soluta nobis eligendi optio cumque nihil impedit</a></h3>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══ LIFESTYLE ══ -->
+<section class="s-row" aria-labelledby="lbl-lifestyle">
+  <div class="s-label s-label--pink" id="lbl-lifestyle">Pariatur</div>
+  <div class="s-content">
+    <div class="culture-hero" style="margin-bottom:12px">
+      <a class="feat-card" href="#" aria-labelledby="ls-h1">
+        <img src="https://placehold.co/500x320" alt="Lorem lifestyle hero 1" width="500" height="320" loading="lazy"/>
+        <div class="feat-card__body">
+          <p class="feat-card__kicker">Lorem ipsum</p>
+          <h3 class="feat-card__h" id="ls-h1">Consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore</h3>
+        </div>
+      </a>
+      <a class="feat-card" href="#" aria-labelledby="ls-h2">
+        <img src="https://placehold.co/500x320" alt="Lorem lifestyle hero 2" width="500" height="320" loading="lazy"/>
+        <div class="feat-card__body">
+          <p class="feat-card__kicker">Lorem travel</p>
+          <h3 class="feat-card__h" id="ls-h2">Nemo enim ipsam voluptatem quia voluptas aspernatur aut odit aut fugit</h3>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Food -->
+<section class="s-row" aria-labelledby="lbl-food">
+  <div class="s-label" id="lbl-food">Excepteur</div>
+  <div class="s-content">
+    <div class="g4">
+      <article aria-labelledby="fd1">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker art__kicker--pink">Lorem cookbook</span>
+        <h3 class="art__h art__h--xs" id="fd1"><a href="#">Consectetur adipiscing elit eiusmod tempor incididunt ut labore dolore</a></h3>
+      </article>
+      <article aria-labelledby="fd2">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker art__kicker--pink">Lorem oils</span>
+        <h3 class="art__h art__h--xs" id="fd2"><a href="#">Nemo enim ipsam voluptatem quia voluptas aspernatur aut odit fugit</a></h3>
+      </article>
+      <article aria-labelledby="fd3">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker art__kicker--pink">Lorem chef</span>
+        <h3 class="art__h art__h--xs" id="fd3"><a href="#">At vero eos accusamus iusto odio dignissimos ducimus qui blanditiis</a></h3>
+      </article>
+      <article aria-labelledby="fd4">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker art__kicker--pink">Lorem recipe</span>
+        <h3 class="art__h art__h--xs" id="fd4"><a href="#">Nam libero tempore soluta nobis eligendi optio cumque nihil impedit</a></h3>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Fashion & beauty -->
+<section class="s-row" aria-labelledby="lbl-fashion">
+  <div class="s-label" id="lbl-fashion">Sint<br/>occaecat</div>
+  <div class="s-content">
+    <div class="g4">
+      <article aria-labelledby="fb1">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker art__kicker--pink">Lorem fashion</span>
+        <h3 class="art__h art__h--xs" id="fb1"><a href="#">Consectetur adipiscing elit eiusmod tempor incididunt ut labore dolore</a></h3>
+      </article>
+      <article aria-labelledby="fb2">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker art__kicker--pink">Lorem streetwear</span>
+        <h3 class="art__h art__h--xs" id="fb2"><a href="#">Nemo enim ipsam voluptatem quia voluptas aspernatur aut odit fugit</a></h3>
+      </article>
+      <article aria-labelledby="fb3">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker art__kicker--pink">Lorem menswear</span>
+        <h3 class="art__h art__h--xs" id="fb3"><a href="#">At vero eos accusamus iusto odio dignissimos ducimus blanditiis</a></h3>
+      </article>
+      <article aria-labelledby="fb4">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker art__kicker--pink">Lorem style</span>
+        <h3 class="art__h art__h--xs" id="fb4"><a href="#">Nam libero tempore soluta nobis eligendi optio cumque nihil impedit</a></h3>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Relationships -->
+<section class="s-row" aria-labelledby="lbl-rel">
+  <div class="s-label" id="lbl-rel">Cupidatat</div>
+  <div class="s-content">
+    <div class="g2">
+      <article class="art--h" aria-labelledby="re1">
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <div>
+          <span class="art__kicker">Lorem date</span>
+          <h3 class="art__h art__h--xs" id="re1"><a href="#">Consectetur adipiscing elit sed eiusmod tempor incididunt ut labore</a></h3>
+        </div>
+      </article>
+      <article class="art--h" aria-labelledby="re2">
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <div>
+          <span class="art__kicker">Lorem relationships</span>
+          <h3 class="art__h art__h--xs" id="re2"><a href="#">Nemo enim ipsam voluptatem quia voluptas aspernatur aut odit fugit</a></h3>
+        </div>
+      </article>
+      <article class="art--h" style="border-bottom:none" aria-labelledby="re3">
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <div>
+          <span class="art__kicker">Lorem dating</span>
+          <h3 class="art__h art__h--xs" id="re3"><a href="#">At vero eos accusamus et iusto odio dignissimos ducimus blanditiis</a></h3>
+        </div>
+      </article>
+      <article class="art--h" style="border-bottom:none" aria-labelledby="re4">
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <div>
+          <span class="art__kicker">Lorem running</span>
+          <h3 class="art__h art__h--xs" id="re4"><a href="#">Nam libero tempore soluta nobis eligendi optio cumque nihil impedit</a></h3>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Health & fitness -->
+<section class="s-row" aria-labelledby="lbl-health">
+  <div class="s-label" id="lbl-health">Non<br/>proident</div>
+  <div class="s-content">
+    <div class="g2">
+      <article class="art--h" aria-labelledby="hf1">
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <div>
+          <span class="art__kicker art__kicker--pink">Lorem health</span>
+          <h3 class="art__h art__h--xs" id="hf1"><a href="#">Consectetur adipiscing elit sed eiusmod tempor incididunt ut labore</a></h3>
+        </div>
+      </article>
+      <article class="art--h" aria-labelledby="hf2">
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <div>
+          <span class="art__kicker">Lorem wellness</span>
+          <h3 class="art__h art__h--xs" id="hf2"><a href="#">Nemo enim ipsam voluptatem quia voluptas aspernatur aut odit fugit</a></h3>
+        </div>
+      </article>
+      <article class="art--h" style="border-bottom:none" aria-labelledby="hf3">
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <div>
+          <span class="art__kicker art__kicker--pink">Lorem myth</span>
+          <h3 class="art__h art__h--xs" id="hf3"><a href="#">At vero eos accusamus et iusto odio dignissimos ducimus blanditiis</a></h3>
+        </div>
+      </article>
+      <article class="art--h" style="border-bottom:none" aria-labelledby="hf4">
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <div>
+          <span class="art__kicker">Lorem secrets</span>
+          <h3 class="art__h art__h--xs" id="hf4"><a href="#">Nam libero tempore soluta nobis eligendi optio cumque nihil impedit</a></h3>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- More lifestyle -->
+<section class="s-row" aria-labelledby="lbl-morelf">
+  <div class="s-label" id="lbl-morelf">Sunt in<br/>culpa</div>
+  <div class="s-content">
+    <div class="g4">
+      <article aria-labelledby="ml1">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker art__kicker--pink">Lorem column</span>
+        <h3 class="art__h art__h--xs" id="ml1"><a href="#">Consectetur adipiscing elit eiusmod tempor incididunt ut labore dolore</a></h3>
+      </article>
+      <article aria-labelledby="ml2">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker">Lorem career</span>
+        <h3 class="art__h art__h--xs" id="ml2"><a href="#">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit</a></h3>
+      </article>
+      <article aria-labelledby="ml3">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker">Lorem experience</span>
+        <h3 class="art__h art__h--xs" id="ml3"><a href="#">At vero eos accusamus iusto odio dignissimos ducimus blanditiis</a></h3>
+      </article>
+      <article aria-labelledby="ml4">
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <span class="art__kicker">Lorem quiz</span>
+        <h3 class="art__h art__h--xs" id="ml4"><a href="#">Nam libero tempore soluta nobis eligendi optio cumque nihil impedit</a></h3>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══ IN PICTURES ══ -->
+<section class="s-row" aria-labelledby="lbl-inpic">
+  <div class="s-label" id="lbl-inpic">Qui officia</div>
+  <div class="s-content">
+    <div class="inpic-layout">
+      <div>
+        <p style="font-family:var(--ff-san);font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Lorem ipsum dolor</p>
+        <h2 class="art__h art__h--lg"><a href="#">Lorem ipsum dolor sit amet consectetur adipiscing elit</a></h2>
+        <p class="art__deck" style="margin-top:6px">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:10px">
+          <span style="background:var(--text);color:var(--white);font-family:var(--ff-san);font-size:11px;font-weight:700;padding:2px 8px;border-radius:2px;transition:background .25s,color .25s">Gallery</span>
+          <span style="font-family:var(--ff-san);font-size:12px;color:var(--muted)">23 ▶</span>
+        </div>
+      </div>
+      <figure>
+        <img src="https://placehold.co/640x360" alt="Lorem in pictures gallery" width="640" height="360" loading="lazy"/>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ══ YOU MAY HAVE MISSED ══ -->
+<section class="s-row" aria-labelledby="lbl-missed">
+  <div class="s-label" style="font-size:16px;font-weight:700;line-height:1.25" id="lbl-missed">Deserunt<br/>mollit</div>
+  <div class="s-content">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px">
+      <a class="missed-card" href="#" aria-labelledby="mm1">
+        <img src="https://placehold.co/400x320" alt="Lorem missed story 1" width="400" height="320" loading="lazy"/>
+        <div class="missed-card__body">
+          <p class="missed-card__kicker">Lorem ipsum</p>
+          <h3 class="missed-card__h" id="mm1">Consectetur adipiscing elit sed do eiusmod tempor incididunt</h3>
+        </div>
+      </a>
+      <a class="missed-card" href="#" aria-labelledby="mm2">
+        <img src="https://placehold.co/400x320/1a1a1a" alt="Lorem missed story 2" width="400" height="320" loading="lazy"/>
+        <div class="missed-card__body">
+          <p class="missed-card__kicker">Dolor sit</p>
+          <h3 class="missed-card__h" id="mm2">Nemo enim ipsam voluptatem quia voluptas aspernatur aut</h3>
+        </div>
+      </a>
+      <a class="missed-card" href="#" aria-labelledby="mm3">
+        <img src="https://placehold.co/400x320" alt="Lorem missed story 3" width="400" height="320" loading="lazy"/>
+        <div class="missed-card__body">
+          <p class="missed-card__kicker">Amet lorem</p>
+          <h3 class="missed-card__h" id="mm3">At vero eos accusamus iusto odio dignissimos ducimus</h3>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Take part -->
+<section class="s-row" aria-labelledby="lbl-takepart">
+  <div class="s-label" id="lbl-takepart">Anim id est</div>
+  <div class="s-content">
+    <div class="takepart-grid">
+      <div class="takepart-item">
+        <figure><img src="https://placehold.co/200x150" alt="" width="200" height="150" loading="lazy" aria-hidden="true"/></figure>
+        <div>
+          <span class="art__kicker art__kicker--pink">Lorem ipsum</span>
+          <h3 class="art__h art__h--xs"><a href="#">Consectetur adipiscing elit: lorem ipsum dolor sit amet?</a></h3>
+        </div>
+      </div>
+      <div class="takepart-item">
+        <figure><img src="https://placehold.co/200x150" alt="" width="200" height="150" loading="lazy" aria-hidden="true"/></figure>
+        <div>
+          <span class="art__kicker art__kicker--pink">Dolor sit</span>
+          <h3 class="art__h art__h--xs"><a href="#">Nemo enim ipsam: do you lorem ipsum dolor sit amet?</a></h3>
+        </div>
+      </div>
+      <div class="takepart-item" style="border-bottom:none">
+        <figure><img src="https://placehold.co/200x150" alt="" width="200" height="150" loading="lazy" aria-hidden="true"/></figure>
+        <div>
+          <span class="art__kicker art__kicker--pink">Amet lorem</span>
+          <h3 class="art__h art__h--xs"><a href="#">At vero eos: tell us your experiences of lorem ipsum dolor</a></h3>
+        </div>
+      </div>
+      <div class="takepart-item" style="border-bottom:none">
+        <figure><img src="https://placehold.co/200x150" alt="" width="200" height="150" loading="lazy" aria-hidden="true"/></figure>
+        <div>
+          <span class="art__kicker art__kicker--pink">Ipsum dolor</span>
+          <h3 class="art__h art__h--xs"><a href="#">Nam libero tempore: tell us your experience with lorem ipsum</a></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Newsletters -->
+<!-- inline signup block inside the stream -->
+<section class="s-row" aria-labelledby="lbl-nl">
+  <div class="s-label" id="lbl-nl">Laborum</div>
+  <div class="s-content">
+    <div style="background:#daeaf7;border-top:3px solid var(--teal);padding:14px;margin-bottom:12px">
+      <p style="font-family:var(--ff-san);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--teal);margin-bottom:4px">Lorem Impsum</p>
+      <h2 style="font-family:var(--ff-ser);font-size:20px;font-weight:700;margin-bottom:6px;color:var(--text)">Lorem ipsum dolor sit amet</h2>
+      <p style="font-family:var(--ff-san);font-size:14px;color:#444;margin-bottom:0">Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <form class="nl-form-row" id="nl-form" aria-label="Lorem ipsum dolor sit" novalidate>
+        <label for="nl-email-input" class="sr-only">Lorem ipsum</label>
+        <input type="email" id="nl-email-input" class="nl-input" placeholder="Lorem ipsum dolor" autocomplete="email" required/>
+        <button type="submit" class="nl-input-btn">Ipsum</button>
+      </form>
+      <!-- Need success and error states mapped correctly for JS -->
+      <p class="nl-msg success" id="nl-success" role="alert" style="display:none;">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <p class="nl-msg error-msg" id="nl-error" role="alert">Lorem ipsum dolor sit amet</p>
+    </div>
+    <div class="nl-grid">
+      <div class="nl-item">
+        <figure><img src="https://placehold.co/160x160" alt="" width="80" height="80" loading="lazy" aria-hidden="true"/></figure>
+        <div>
+          <span class="art__kicker art__kicker--red">Lorem news</span>
+          <h3 class="art__h art__h--xs"><a href="#">Lorem ipsum dolor sit amet</a></h3>
+          <span class="lbl-nl">Newsletter</span>
+        </div>
+      </div>
+      <div class="nl-item">
+        <figure><img src="https://placehold.co/160x160" alt="" width="80" height="80" loading="lazy" aria-hidden="true"/></figure>
+        <div>
+          <span class="art__kicker art__kicker--brown">Lorem Ipsum</span>
+          <h3 class="art__h art__h--xs"><a href="#">Lorem ipsum dolor sit amet</a></h3>
+          <span class="lbl-nl">Newsletter</span>
+        </div>
+      </div>
+      <div class="nl-item" style="border-bottom:none">
+        <figure><img src="https://placehold.co/160x160" alt="" width="80" height="80" loading="lazy" aria-hidden="true"/></figure>
+        <div>
+          <span class="art__kicker art__kicker--pink">Lorem food</span>
+          <h3 class="art__h art__h--xs"><a href="#">Lorem ipsum dolor sit amet</a></h3>
+          <span class="lbl-nl">Newsletter</span>
+        </div>
+      </div>
+      <div class="nl-item" style="border-bottom:none">
+        <figure><img src="https://placehold.co/160x160" alt="" width="80" height="80" loading="lazy" aria-hidden="true"/></figure>
+        <div>
+          <span class="art__kicker art__kicker--green">Lorem sport</span>
+          <h3 class="art__h art__h--xs"><a href="#">Lorem ipsum dolor sit amet</a></h3>
+          <span class="lbl-nl">Newsletter</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MOST POPULAR ══ -->
+<section style="padding:12px 0 20px;border-top:3px solid var(--text)" aria-labelledby="lbl-popular">
+  <h2 style="font-family:var(--ff-san);font-size:18px;font-weight:700;margin-bottom:12px" id="lbl-popular">Lorem ipsum</h2>
+
+  <!-- tabs for most popular vs deeply read -->
+  <div class="pop-tabs" role="tablist" aria-label="Most popular views">
+    <button class="pop-tab active" role="tab" id="tab-viewed" aria-selected="true" aria-controls="panel-viewed">Dolor sit</button>
+    <button class="pop-tab" role="tab" id="tab-read" aria-selected="false" aria-controls="panel-read">Amet</button>
+  </div>
+
+  <!-- Panel: Most viewed -->
+  <div class="pop-panel active" id="panel-viewed" role="tabpanel" aria-labelledby="tab-viewed">
+    <p class="pop-sub">Lorem ipsum dolor sit amet</p>
+    <div class="pop-cols">
+      <ol aria-label="Most viewed articles, left column">
+        <li class="pop-item"><span class="pop-num" aria-hidden="true">1</span><p class="pop-text"><a href="#">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor</a></p></li>
+        <li class="pop-item"><span class="pop-num" aria-hidden="true">2</span><p class="pop-text"><a href="#">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit</a></p></li>
+        <li class="pop-item"><span class="pop-num" aria-hidden="true">3</span><p class="pop-text"><a href="#">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi</a></p></li>
+        <li class="pop-item"><span class="pop-num" aria-hidden="true">4</span><p class="pop-text"><span class="lbl-live" style="margin-right:4px">Live</span><a href="#">At vero eos accusamus iusto odio dignissimos ducimus blanditiis</a></p></li>
+        <li class="pop-item"><span class="pop-num" aria-hidden="true">5</span><p class="pop-text"><a href="#">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium</a></p></li>
+      </ol>
+      <ol aria-label="Most viewed articles, right column">
+        <li class="pop-item"><span class="pop-num" aria-hidden="true">6</span><p class="pop-text"><a href="#">Consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore dolore</a></p></li>
+        <li class="pop-item"><span class="pop-num" aria-hidden="true">7</span><p class="pop-text"><a href="#">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</a></p></li>
+        <li class="pop-item"><span class="pop-num" aria-hidden="true">8</span><p class="pop-text"><a href="#">Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia</a></p></li>
+        <li class="pop-item"><span class="pop-num" aria-hidden="true">9</span><p class="pop-text"><a href="#">Nam libero tempore soluta nobis eligendi optio cumque nihil impedit quo</a></p></li>
+        <li class="pop-item"><span class="pop-num" aria-hidden="true">10</span><p class="pop-text"><a href="#">Temporibus autem quibusdam aut officiis debitis rerum necessitatibus</a></p></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Panel: Deeply read -->
+  <div class="pop-panel" id="panel-read" role="tabpanel" aria-labelledby="tab-read" hidden>
+    <p class="pop-sub">Consectetur adipiscing elit <a href="#">Lorem ipsum</a></p>
+    <div class="pop-cols">
+      <ol aria-label="Deeply read articles, left column">
+        <li class="pop-item"><span class="pop-num" aria-hidden="true">1</span><p class="pop-text"><a href="#">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium</a></p></li>
+        <li class="pop-item"><span class="pop-num" aria-hidden="true">2</span><p class="pop-text"><a href="#">Consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore dolore</a></p></li>
+        <li class="pop-item"><span class="pop-num" aria-hidden="true">3</span><p class="pop-text"><a href="#">Lorem ipsum dolor sit amet nemo enim ipsam voluptatem aspernatur odit</a></p></li>
+        <li class="pop-item"><span class="pop-num" aria-hidden="true">4</span><p class="pop-text"><a href="#">Duis aute irure dolor reprehenderit in voluptate velit esse cillum dolore</a></p></li>
+        <li class="pop-item"><span class="pop-num" aria-hidden="true">5</span><p class="pop-text"><a href="#">At vero eos accusamus et iusto odio dignissimos ducimus blanditiis</a></p></li>
+      </ol>
+      <ol aria-label="Deeply read articles, right column">
+        <li class="pop-item"><span class="pop-num" aria-hidden="true">6</span><p class="pop-text"><a href="#">Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi</a></p></li>
+        <li class="pop-item"><span class="pop-num" aria-hidden="true">7</span><p class="pop-text"><a href="#">Nam libero tempore soluta nobis eligendi optio cumque nihil impedit</a></p></li>
+        <li class="pop-item"><span class="pop-num" aria-hidden="true">8</span><p class="pop-text"><a href="#">Excepteur sint occaecat cupidatat non proident sunt in culpa qui</a></p></li>
+        <li class="pop-item"><span class="pop-num" aria-hidden="true">9</span><p class="pop-text"><a href="#">Temporibus autem quibusdam aut officiis debitis rerum necessitatibus</a></p></li>
+        <li class="pop-item"><span class="pop-num" aria-hidden="true">10</span><p class="pop-text"><a href="#">Nemo enim ipsam voluptatem quia voluptas aspernatur aut odit fugit</a></p></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- Topic tags -->
+<nav class="tags" aria-label="Trending topics">
+  <a href="#">Lorem ipsum</a>
+  <a href="#">Dolor sit</a>
+  <a href="#">Consectetur</a>
+  <a href="#">Adipiscing</a>
+</nav>
+<nav class="tags" aria-label="Section topics">
+  <a href="#">Eiusmod</a>
+  <a href="#">Tempor</a>
+  <a href="#">Incididunt</a>
+  <a href="#">Ut labore</a>
+  <a href="#">Et dolore</a>
+  <a href="#">Magna</a>
+  <a href="#">Aliqua</a>
+  <a href="#">Ut enim</a>
+  <a href="#">Ad minim</a>
+  <a href="#">Veniam</a>
+  <a href="#">Nostrud</a>
+</nav>
+
+</div><!-- /page -->
+</main>
+
+<!-- ═══════════════════════════════════
+     FOOTER
+═══════════════════════════════════ -->
+<footer id="ftr" role="contentinfo">
+  <div class="ftr-top">
+    <div class="ftr-top-inner">
+      <p class="ftr-tagline">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
+      <button class="ftr-signup-btn" id="ftr-signup" aria-label="Sign up for the email newsletter">
+        Lorem ipsum dolor
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="ftr-nav-bar">
+    <nav class="ftr-nav-row" aria-label="Footer section navigation">
+      <a href="#" class="ftr-navpill">Lorem</a>
+      <a href="#" class="ftr-navpill">Ipsum</a>
+      <a href="#" class="ftr-navpill">Dolor</a>
+      <a href="#" class="ftr-navpill">Sit</a>
+      <a href="#" class="ftr-navpill">Amet</a>
+    </nav>
+  </div>
+  <div class="ftr-body">
+    <div class="ftr-col">
+      <h3>Consectetur</h3>
+      <ul>
+        <li><a href="#">Adipiscing</a></li>
+        <li><a href="#">Elit</a></li>
+        <li><a href="#">Sed do</a></li>
+        <li><a href="#">Eiusmod</a></li>
+        <li><a href="#">Tempor</a></li>
+        <li><a href="#">Incididunt</a></li>
+        <li><a href="#">Ut labore</a></li>
+        <li><a href="#">Et dolore</a></li>
+        <li><a href="#">Magna</a></li>
+        <li><a href="#">Aliqua</a></li>
+      </ul>
+    </div>
+    <div class="ftr-col">
+      <h3>Ut enim</h3>
+      <ul>
+        <li><a href="#">Ad minim</a></li>
+        <li><a href="#">Veniam</a></li>
+        <li><a href="#">Quis nostrud</a></li>
+        <li><a href="#">Exercitation</a></li>
+        <li><a href="#">Ullamco</a></li>
+        <li><a href="#">Laboris nisi</a></li>
+        <li><a href="#">Ut aliquip</a></li>
+        <li><a href="#">Ex ea commodo</a></li>
+      </ul>
+    </div>
+    <div class="ftr-col">
+      <h3>Consequat</h3>
+      <ul>
+        <li><a href="#">Duis aute</a></li>
+        <li><a href="#">Irure dolor</a></li>
+      </ul>
+      <h3 style="margin-top:16px">Reprehenderit</h3>
+      <ul>
+        <li><a href="#">In voluptate</a></li>
+        <li><a href="#">Velit esse</a></li>
+        <li><a href="#">Cillum dolore</a></li>
+        <li><a href="#">Eu fugiat</a></li>
+        <li><a href="#">Nulla pariatur</a></li>
+        <li><a href="#">Excepteur sint</a></li>
+      </ul>
+    </div>
+    <div class="ftr-col">
+      <h3>Occaecat</h3>
+      <ul>
+        <li><a href="#">Cupidatat non</a></li>
+        <li><a href="#">Proident</a></li>
+        <li><a href="#">Sunt in culpa</a></li>
+        <li><a href="#">Qui officia</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ftr-bottom">
+    <nav class="ftr-links" aria-label="Legal links">
+      <a href="#">Deserunt</a>
+      <a href="#">Mollit</a>
+      <a href="#">Anim id est</a>
+      <a href="#">Laborum</a>
+      <a href="#">Perspiciatis</a>
+      <a href="#">Unde omnis</a>
+      <a href="#">Iste natus</a>
+    </nav>
+    <p class="ftr-copy">&copy; <span id="yr"></span> Lorem Ipsum Sit Amet Dolor. All rights reserved.</p>
+  </div>
+  <button class="ftr-backtop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top of page">
+    Lorem ipsum
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+  </button>
+</footer>
+
+<!-- Floating back to top arrow on the right -->
+<button id="back-top" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+</button>
+
+<!-- ═══════════════════════════════════
+     JAVASCRIPT — ALL FEATURES
+═══════════════════════════════════ -->
+<script>
+(function() {
+  'use strict';
+
+  // set the copyright year dynamically so it's always up to date
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // simple logic for the reading progress bar
+  const bar = document.getElementById('progress-bar');
+  function updateProgress() {
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    const pct  = docH > 0 ? Math.min(100, (window.scrollY / docH) * 100) : 0;
+    bar.style.width = pct + '%';
+    bar.setAttribute('aria-valuenow', Math.round(pct));
+  }
+  // making it passive for better scroll performance
+  window.addEventListener('scroll', updateProgress, { passive: true });
+
+  // toggling the box-shadow on the sticky header when we scroll down
+  const hdr = document.getElementById('hdr');
+  window.addEventListener('scroll', () => {
+    hdr.classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive: true });
+
+  // showing the floating back-to-top button only after scrolling past the fold
+  const backTop = document.getElementById('back-top');
+  window.addEventListener('scroll', () => {
+    backTop.classList.toggle('visible', window.scrollY > 600);
+  }, { passive: true });
+  backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  // theme switcher with local storage so it remembers your choice
+  const themeBtn = document.getElementById('theme-toggle');
+  const stored   = localStorage.getItem('guardian-theme') || 'light';
+  if (stored === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    themeBtn.textContent = '☀️';
+    themeBtn.setAttribute('aria-label', 'Switch to light mode');
+  }
+  themeBtn.addEventListener('click', () => {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      document.documentElement.removeAttribute('data-theme');
+      themeBtn.textContent = '🌙';
+      themeBtn.setAttribute('aria-label', 'Switch to dark mode');
+      localStorage.setItem('guardian-theme', 'light');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeBtn.textContent = '☀️';
+      themeBtn.setAttribute('aria-label', 'Switch to light mode');
+      localStorage.setItem('guardian-theme', 'dark');
+    }
+  });
+
+  // managing the huge search overlay
+  const searchOverlay = document.getElementById('search-overlay');
+  const searchInput   = document.getElementById('search-input');
+  const searchOpen    = document.getElementById('search-open');
+  const searchClose   = document.getElementById('search-close');
+
+  function openSearch() {
+    searchOverlay.classList.add('open');
+    searchOverlay.removeAttribute('aria-hidden');
+    searchInput.focus();
+    // lock body scroll while modal is open
+    document.body.style.overflow = 'hidden';
+  }
+  function closeSearch() {
+    searchOverlay.classList.remove('open');
+    searchOverlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    searchOpen.focus();
+  }
+  searchOpen.addEventListener('click', openSearch);
+  searchClose.addEventListener('click', closeSearch);
+  // close if clicking the background overlay
+  searchOverlay.addEventListener('click', e => { if (e.target === searchOverlay) closeSearch(); });
+  
+  // hit escape to exit search
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && searchOverlay.classList.contains('open')) closeSearch();
+  });
+  
+  // fake search action
+  searchInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && searchInput.value.trim()) {
+      alert('Search: ' + searchInput.value.trim());
+      closeSearch();
+    }
+  });
+  
+  // clickable search hints
+  document.querySelectorAll('.search-hints span').forEach(hint => {
+    hint.addEventListener('click', () => {
+      searchInput.value = hint.textContent;
+      searchInput.focus();
+    });
+    // making spans keyboard accessible
+    hint.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); searchInput.value = hint.textContent; searchInput.focus(); }
+    });
+  });
+
+  // mobile navigation slide-in menu
+  const mobileNav = document.getElementById('mobile-nav');
+  const hamBtn    = document.getElementById('ham-btn');
+  const mnavClose = document.getElementById('mnav-close');
+
+  function openNav() {
+    mobileNav.classList.add('open');
+    mobileNav.removeAttribute('aria-hidden');
+    hamBtn.setAttribute('aria-expanded', 'true');
+    mnavClose.focus();
+    document.body.style.overflow = 'hidden';
+  }
+  function closeNav() {
+    mobileNav.classList.remove('open');
+    mobileNav.setAttribute('aria-hidden', 'true');
+    hamBtn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    hamBtn.focus();
+  }
+  hamBtn.addEventListener('click', openNav);
+  mnavClose.addEventListener('click', closeNav);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && mobileNav.classList.contains('open')) closeNav();
+  });
+
+  // custom edition dropdown toggling
+  const edBtn  = document.getElementById('edition-btn');
+  const edDrop = document.getElementById('edition-dropdown');
+
+  edBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    const open = edDrop.classList.toggle('open');
+    edBtn.setAttribute('aria-expanded', String(open));
+  });
+  // close the dropdown if we click anywhere outside of it
+  document.addEventListener('click', () => {
+    edDrop.classList.remove('open');
+    edBtn.setAttribute('aria-expanded', 'false');
+  });
+  edDrop.addEventListener('click', e => e.stopPropagation());
+  
+  // update button text when switching editions
+  document.querySelectorAll('.ed-item').forEach(item => {
+    item.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelectorAll('.ed-item').forEach(i => {
+        i.classList.remove('current');
+        i.setAttribute('aria-selected', 'false');
+      });
+      item.classList.add('current');
+      item.setAttribute('aria-selected', 'true');
+      edBtn.textContent = item.querySelector('.ed-name').textContent.slice(0,3); // takes the first 3 letters
+      edDrop.classList.remove('open');
+      edBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // tab switcher for the 'most popular' section
+  const tabs   = document.querySelectorAll('.pop-tab');
+  const panels = document.querySelectorAll('.pop-panel');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.getAttribute('aria-controls');
+      // clear active states
+      tabs.forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      panels.forEach(p => {
+        p.classList.remove('active');
+        p.hidden = true;
+      });
+      // set clicked tab active
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+      const panel = document.getElementById(target);
+      panel.classList.add('active');
+      panel.hidden = false;
+    });
+    // add left/right arrow navigation for accessibility
+    tab.addEventListener('keydown', e => {
+      const all = [...tabs];
+      const idx = all.indexOf(tab);
+      if (e.key === 'ArrowRight') { e.preventDefault(); all[(idx + 1) % all.length].click(); all[(idx + 1) % all.length].focus(); }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); all[(idx - 1 + all.length) % all.length].click(); all[(idx - 1 + all.length) % all.length].focus(); }
+    });
+  });
+
+  // simple regex validation for the newsletter form
+  const nlForm    = document.getElementById('nl-form');
+  const nlEmail   = document.getElementById('nl-email-input');
+  const nlSuccess = document.getElementById('nl-success');
+  const nlError   = document.getElementById('nl-error');
+
+  nlForm.addEventListener('submit', e => {
+    e.preventDefault();
+    nlSuccess.style.display = 'none';
+    nlError.style.display   = 'none';
+    nlEmail.classList.remove('error');
+    
+    const val = nlEmail.value.trim();
+    const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+    
+    if (!valid) {
+      nlEmail.classList.add('error');
+      nlError.style.display = 'block';
+      nlEmail.focus();
+    } else {
+      nlSuccess.style.display = 'block';
+      nlEmail.value = '';
+    }
+  });
+
+  // scroll directly to newsletter input from footer button
+  document.getElementById('ftr-signup').addEventListener('click', () => {
+    document.getElementById('nl-email-input').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setTimeout(() => document.getElementById('nl-email-input').focus(), 600);
+  });
+
+  // handle the cookie banner visibility state using local storage
+  const cookieBanner = document.getElementById('cookie-banner');
+  if (localStorage.getItem('cookies-accepted')) {
+    cookieBanner.classList.add('hidden');
+  }
+  document.getElementById('cookie-accept').addEventListener('click', () => {
+    localStorage.setItem('cookies-accepted', '1');
+    cookieBanner.classList.add('hidden');
+  });
+  document.getElementById('cookie-manage').addEventListener('click', () => {
+    alert('Cookie preferences manager would open here.');
+  });
+
+  // expand/collapse the "About" info in the sponsored band
+  const paidAbout = document.getElementById('paid-about');
+  if (paidAbout) {
+    paidAbout.addEventListener('click', () => {
+      const expanded = paidAbout.getAttribute('aria-expanded') === 'true';
+      paidAbout.setAttribute('aria-expanded', String(!expanded));
+      paidAbout.querySelector('span').textContent = expanded ? '▾' : '▴';
+    });
+  }
+
+  // natively lazy load images, falling back to intersection observer if necessary
+  if ('IntersectionObserver' in window) {
+    const imgObs = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          if (img.dataset.src) { img.src = img.dataset.src; delete img.dataset.src; }
+          img.classList.add('loaded');
+          obs.unobserve(img); // stop watching once it loads
+        }
+      });
+    }, { rootMargin: '200px' });
+    document.querySelectorAll('img[loading="lazy"]').forEach(img => imgObs.observe(img));
+  }
+
+  // stop marquee animation if the user tabs into it
+  const tickerText = document.querySelector('.ticker-text');
+  if (tickerText) {
+    tickerText.addEventListener('focus', () => tickerText.style.animationPlayState = 'paused');
+    tickerText.addEventListener('blur',  () => tickerText.style.animationPlayState = '');
+  }
+
+  // smooth jump links across the page
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        target.focus({ preventScroll: true });
+      }
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
