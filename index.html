@@ -27,7 +27,7 @@
   --border:  #dcdcdc;
   --border-l:#ededed;
   --text:    #121212;
-  --muted:   #767676;
+  --muted:   #595959; /* Darkened for AAA WCAG contrast compliance */
   --ff-ser:  'Source Serif 4', Georgia, serif; /* headings */
   --ff-san:  'Source Sans 3', 'Helvetica Neue', sans-serif; /* body/UI */
   --max:     1300px; /* max container width */
@@ -915,11 +915,12 @@ figcaption{
 <!-- search modal (hidden by default) -->
 <div id="search-overlay" role="dialog" aria-modal="true" aria-label="Lorem Ipsum Dolor">
   <div class="search-wrap">
-    <div class="search-input-row">
+    <!-- WAVE A11y Fix: Added proper <form> semantics and removed vague placeholder -->
+    <form role="search" class="search-input-row" aria-label="Site search" onsubmit="event.preventDefault();">
       <label for="search-input" class="sr-only">Search query</label>
       <input type="search" id="search-input" placeholder="Lorem Ipsum" autocomplete="off" enterkeyhint="search"/>
-      <button class="search-close" id="search-close" aria-label="Close search">✕</button>
-    </div>
+      <button type="button" class="search-close" id="search-close" aria-label="Close search">✕</button>
+    </form>
     <p style="font-family:var(--ff-san);font-size:13px;color:rgba(255,255,255,.5);margin-bottom:10px">Lorem ipsum sit</p>
     <div class="search-hints" aria-label="Suggested searches">
       <span role="button" tabindex="0">Lorem ipsum</span>
@@ -1056,14 +1057,16 @@ figcaption{
       <article aria-labelledby="n1">
         <span class="lbl-live">Live</span>
         <span class="art__kicker art__kicker--red">Lorem ipsum</span>
-        <h2 class="art__h art__h--xl" id="n1">
+        <!-- WAVE A11y Fix: Added the missing semantic <h1> element -->
+        <h1 class="art__h art__h--xl" id="n1">
           <a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt labore et dolore magna aliqua</a>
-        </h2>
+        </h1>
         <p class="art__deck">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit.</p>
         <p class="art__time">1h ago</p>
       </article>
       <article aria-labelledby="n1b">
-        <figure class="art__img"><img src="https://placehold.co/520x310/" alt="Lorem ipsum placeholder image" width="520" height="310" loading="eager" fetchpriority="high"/></figure>
+        <!-- WAVE A11y Fix: Descriptive alt text replacing vague placeholder -->
+        <figure class="art__img"><img src="https://placehold.co/520x310/" alt="Close up view of abstract architectural lines" width="520" height="310" loading="eager" fetchpriority="high"/></figure>
         <span class="art__kicker">Consectetur adipiscing</span>
         <h3 class="art__h art__h--sm" id="n1b"><a href="#">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</a></h3>
       </article>
@@ -1072,25 +1075,26 @@ figcaption{
     <!-- 4-col row using css grid (.g4) -->
     <div class="g4" style="margin-bottom:16px">
       <article aria-labelledby="n2">
-        <figure class="art__img"><img src="https://placehold.co/340x204" alt="Lorem placeholder" width="340" height="204" loading="lazy"/></figure>
+        <!-- WAVE A11y Fix: Decorative thumbnails without explicit links can be empty alt -->
+        <figure class="art__img"><img src="https://placehold.co/340x204" alt="" width="340" height="204" loading="lazy"/></figure>
         <span class="art__kicker">Lorem ipsum</span>
         <h3 class="art__h art__h--sm" id="n2"><a href="#">Consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore</a></h3>
         <p class="art__time">2h ago</p>
       </article>
       <article aria-labelledby="n3">
-        <figure class="art__img"><img src="https://placehold.co/340x204" alt="Lorem placeholder" width="340" height="204" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/340x204" alt="" width="340" height="204" loading="lazy"/></figure>
         <span class="art__kicker">Dolor sit amet</span>
         <h3 class="art__h art__h--sm" id="n3"><a href="#">Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi</a></h3>
         <p class="art__time">3h ago</p>
       </article>
       <article aria-labelledby="n4">
-        <figure class="art__img"><img src="https://placehold.co/340x204" alt="Lorem placeholder" width="340" height="204" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/340x204" alt="" width="340" height="204" loading="lazy"/></figure>
         <span class="art__kicker">Adipiscing elit</span>
         <h3 class="art__h art__h--sm" id="n4"><a href="#">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum</a></h3>
         <p class="art__time">4h ago</p>
       </article>
       <article aria-labelledby="n5">
-        <figure class="art__img"><img src="https://placehold.co/340x204" alt="Lorem placeholder" width="340" height="204" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/340x204" alt="" width="340" height="204" loading="lazy"/></figure>
         <span class="art__kicker art__kicker--red">Analysis</span>
         <h3 class="art__h art__h--sm" id="n5"><a href="#">Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia</a></h3>
         <p class="art__time">4h ago</p>
@@ -1105,7 +1109,7 @@ figcaption{
       </h2>
       <p class="art__deck">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa quae ab illo inventore veritatis.</p>
       <p class="art__byline"><a href="#" style="color:var(--teal)">Lorem Columnist</a></p>
-      <figure class="art__img" style="margin-top:8px"><img src="https://placehold.co/780x390" alt="Lorem feature image" width="780" height="390" loading="lazy"/></figure>
+      <figure class="art__img" style="margin-top:8px"><img src="https://placehold.co/780x390" alt="" width="780" height="390" loading="lazy"/></figure>
       <div class="g3" style="margin-top:12px">
         <div>
           <span class="art__kicker">Lorem</span>
@@ -1126,7 +1130,7 @@ figcaption{
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;border-top:1px solid var(--border);padding-top:12px;margin-bottom:12px">
       <div>
         <article class="art--h" aria-labelledby="n8">
-          <figure class="art__img"><img src="https://placehold.co/180x135" alt="Lorem placeholder" width="180" height="135" loading="lazy"/></figure>
+          <figure class="art__img"><img src="https://placehold.co/180x135" alt="" width="180" height="135" loading="lazy"/></figure>
           <div>
             <span class="art__kicker">Lorem ipsum</span>
             <h3 class="art__h art__h--xs" id="n8"><a href="#">Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse</a></h3>
@@ -1134,7 +1138,7 @@ figcaption{
           </div>
         </article>
         <article class="art--h" aria-labelledby="n9">
-          <figure class="art__img"><img src="https://placehold.co/180x135" alt="Lorem placeholder" width="180" height="135" loading="lazy"/></figure>
+          <figure class="art__img"><img src="https://placehold.co/180x135" alt="" width="180" height="135" loading="lazy"/></figure>
           <div>
             <span class="art__kicker">Dolor sit</span>
             <h3 class="art__h art__h--xs" id="n9"><a href="#">Itaque earum rerum hic tenetur a sapiente delectus ut aut reiciendis</a></h3>
@@ -1148,7 +1152,7 @@ figcaption{
           <h3 class="art__h art__h--sm" id="n10"><a href="#">Quis nostrum exercitationem ullam corporis suscipit laboriosam nisi</a></h3>
         </article>
         <article style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border)" aria-labelledby="n11">
-          <figure class="art__img"><img src="https://placehold.co/340x204" alt="Lorem placeholder" width="340" height="204" loading="lazy"/></figure>
+          <figure class="art__img"><img src="https://placehold.co/340x204" alt="" width="340" height="204" loading="lazy"/></figure>
           <span class="art__kicker">Adipiscing</span>
           <h3 class="art__h art__h--sm" id="n11"><a href="#">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur</a></h3>
           <p class="art__deck">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
@@ -1160,25 +1164,25 @@ figcaption{
     <!-- 4-col row at the bottom of the section -->
     <div class="g4" style="border-top:1px solid var(--border);padding-top:12px">
       <article aria-labelledby="n12">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker">Lorem ipsum</span>
         <h3 class="art__h art__h--xs" id="n12"><a href="#">Quia dolor sit amet consectetur adipiscing elit sed do eiusmod labore</a></h3>
         <p class="art__time">8h ago</p>
       </article>
       <article aria-labelledby="n13">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker art__kicker--red">Dolor</span>
         <h3 class="art__h art__h--xs" id="n13"><a href="#">Ut labore et dolore magnam aliquam quaerat voluptatem ullam corporis</a></h3>
         <p class="art__time">8h ago</p>
       </article>
       <article aria-labelledby="n14">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker">Ipsum</span>
         <h3 class="art__h art__h--xs" id="n14"><a href="#">Accusantium doloremque laudantium totam rem aperiam eaque ipsa quae</a></h3>
         <p class="art__time">9h ago</p>
       </article>
       <article aria-labelledby="n15">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker">Amet</span>
         <h3 class="art__h art__h--xs" id="n15"><a href="#">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit</a></h3>
         <p class="art__time">10h ago</p>
@@ -1196,7 +1200,7 @@ figcaption{
         <h2 class="art__h art__h--xl"><a href="#" style="color:#fff">Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor</a></h2>
         <p class="special-deck">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
       </div>
-      <figure><img src="https://placehold.co/500x320" alt="Special report placeholder" width="500" height="320" loading="lazy"/></figure>
+      <figure><img src="https://placehold.co/500x320" alt="Special report infographic visualization" width="500" height="320" loading="lazy"/></figure>
     </div>
   </div>
 </section>
@@ -1212,18 +1216,18 @@ figcaption{
     </div>
     <div class="g3" style="border-top:1px solid var(--border);padding-top:12px">
       <article aria-labelledby="f2">
-        <figure class="art__img"><img src="https://placehold.co/320x192" alt="Lorem placeholder" width="320" height="192" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/320x192" alt="" width="320" height="192" loading="lazy"/></figure>
         <span class="art__kicker">Lorem ipsum</span>
         <h3 class="art__h art__h--xs" id="f2"><a href="#">Nemo enim ipsam voluptatem quia voluptas aspernatur aut odit aut fugit</a></h3>
       </article>
       <article aria-labelledby="f3">
-        <figure class="art__img"><img src="https://placehold.co/320x192" alt="Lorem placeholder" width="320" height="192" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/320x192" alt="" width="320" height="192" loading="lazy"/></figure>
         <span class="art__kicker art__kicker--red">Consectetur</span>
         <h3 class="art__h art__h--xs" id="f3"><a href="#">At vero eos et accusamus et iusto odio dignissimos ducimus blanditiis</a></h3>
         <p class="art__time">5h ago</p>
       </article>
       <article aria-labelledby="f4">
-        <figure class="art__img"><img src="https://placehold.co/320x192" alt="Lorem placeholder" width="320" height="192" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/320x192" alt="" width="320" height="192" loading="lazy"/></figure>
         <span class="art__kicker">Adipiscing</span>
         <h3 class="art__h art__h--xs" id="f4"><a href="#">Nam libero tempore cum soluta nobis eligendi optio cumque nihil impedit</a></h3>
         <p class="art__time">6h ago</p>
@@ -1319,7 +1323,7 @@ figcaption{
         <p class="cartoon-deck">Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
       </div>
       <figure>
-        <img src="https://placehold.co/560x280" alt="Lorem ipsum dolor sit amet" width="560" height="280" loading="lazy"/>
+        <img src="https://placehold.co/560x280" alt="Political cartoon abstract illustration" width="560" height="280" loading="lazy"/>
         <figcaption>'Lorem ipsum dolor sit amet, consectetur adipiscing elit…'</figcaption>
       </figure>
     </div>
@@ -1347,7 +1351,7 @@ figcaption{
           <h4 class="art__h art__h--xs"><a href="#">At vero eos et accusamus et iusto odio dignissimos ducimus</a></h4>
         </div>
       </article>
-      <figure><img src="https://placehold.co/500x380" alt="Lorem ipsum dolor" width="500" height="380" loading="lazy"/></figure>
+      <figure><img src="https://placehold.co/500x380" alt="Action shot of a sports stadium" width="500" height="380" loading="lazy"/></figure>
     </div>
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;border-top:1px solid var(--border);padding-top:12px;margin-bottom:12px">
@@ -1355,7 +1359,7 @@ figcaption{
         <span class="art__kicker art__kicker--green">Lorem Ipsum</span>
         <h3 class="art__h art__h--md" id="sp2"><a href="#">Consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore</a></h3>
         <p class="art__deck">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-        <figure class="art__img" style="margin-top:8px"><img src="https://placehold.co/380x228" alt="Lorem ipsum dolor" width="380" height="228" loading="lazy"/></figure>
+        <figure class="art__img" style="margin-top:8px"><img src="https://placehold.co/380x228" alt="" width="380" height="228" loading="lazy"/></figure>
         <div style="margin-top:8px">
           <span class="art__kicker art__kicker--green" style="font-size:11px">Lorem ipsum</span>
           <h4 class="art__h art__h--xs"><a href="#">Sed ut perspiciatis unde omnis iste natus error voluptatem accusantium</a></h4>
@@ -1368,7 +1372,7 @@ figcaption{
             <h3 class="art__h art__h--xs" id="sp3"><a href="#">Nemo enim ipsam voluptatem quia voluptas aspernatur odit fugit</a></h3>
             <p class="art__time">6h ago</p>
           </div>
-          <figure class="art__img"><img src="https://placehold.co/140x140" alt="Lorem placeholder" width="140" height="140" loading="lazy"/></figure>
+          <figure class="art__img"><img src="https://placehold.co/140x140" alt="" width="140" height="140" loading="lazy"/></figure>
         </article>
         <article class="art--h" aria-labelledby="sp4">
           <div>
@@ -1376,7 +1380,7 @@ figcaption{
             <h3 class="art__h art__h--xs" id="sp4"><a href="#">At vero eos accusamus iusto odio dignissimos ducimus blanditiis</a></h3>
             <p class="art__time">7h ago</p>
           </div>
-          <figure class="art__img"><img src="https://placehold.co/140x140" alt="Lorem Ipsum" width="140" height="140" loading="lazy"/></figure>
+          <figure class="art__img"><img src="https://placehold.co/140x140" alt="" width="140" height="140" loading="lazy"/></figure>
         </article>
       </div>
     </div>
@@ -1387,7 +1391,7 @@ figcaption{
         <a href="#">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore dolore</a>
       </h3>
       <p class="art__deck">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-      <figure class="art__img" style="margin-top:8px"><img src="https://placehold.co/760x380" alt="Lorem ipsum dolor" width="760" height="380" loading="lazy"/></figure>
+      <figure class="art__img" style="margin-top:8px"><img src="https://placehold.co/760x380" alt="Wide view of a tennis court" width="760" height="380" loading="lazy"/></figure>
       <p class="art__time">7h ago</p>
     </article>
   </div>
@@ -1399,7 +1403,7 @@ figcaption{
   <div class="s-content">
     <div class="g2">
       <article class="art--h" aria-labelledby="ms1">
-        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="" width="200" height="150" loading="lazy"/></figure>
         <div>
           <span class="art__kicker art__kicker--green">Lorem ipsum</span>
           <h3 class="art__h art__h--xs" id="ms1"><a href="#">Consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore dolore</a></h3>
@@ -1408,7 +1412,7 @@ figcaption{
         </div>
       </article>
       <article class="art--h" aria-labelledby="ms2">
-        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="" width="200" height="150" loading="lazy"/></figure>
         <div>
           <span class="art__kicker art__kicker--green">Lorem Sport</span>
           <h3 class="art__h art__h--xs" id="ms2"><a href="#">Ut enim ad minim veniam quis nostrud exercitation ullamco laboris</a></h3>
@@ -1416,7 +1420,7 @@ figcaption{
         </div>
       </article>
       <article class="art--h" style="border-bottom:none" aria-labelledby="ms3">
-        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="" width="200" height="150" loading="lazy"/></figure>
         <div>
           <span class="art__kicker art__kicker--green">Lorem League</span>
           <h3 class="art__h art__h--xs" id="ms3"><a href="#">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit</a></h3>
@@ -1424,7 +1428,7 @@ figcaption{
         </div>
       </article>
       <article class="art--h" style="border-bottom:none" aria-labelledby="ms4">
-        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="" width="200" height="150" loading="lazy"/></figure>
         <div>
           <span class="art__kicker art__kicker--green">Lorem Extract</span>
           <h3 class="art__h art__h--xs" id="ms4"><a href="#">Duis aute irure dolor reprehenderit in voluptate velit esse cillum</a></h3>
@@ -1440,8 +1444,9 @@ figcaption{
   <div class="s-label" id="lbl-features">Et dolore</div>
   <div class="s-content">
     <div class="g2" style="margin-bottom:12px">
+      <!-- WAVE A11y Note: .feat-card link wraps both image and text. This avoids duplicate links. -->
       <a class="feat-card" href="#" aria-labelledby="feat1">
-        <img src="https://placehold.co/480x580" alt="Lorem feature portrait 1" width="480" height="580" loading="lazy"/>
+        <img src="https://placehold.co/480x580" alt="Person standing in nature" width="480" height="580" loading="lazy"/>
         <div class="feat-card__body">
           <p class="feat-card__kicker">Lorem ipsum</p>
           <h3 class="feat-card__h" id="feat1">Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor</h3>
@@ -1449,7 +1454,7 @@ figcaption{
         </div>
       </a>
       <a class="feat-card" href="#" aria-labelledby="feat2">
-        <img src="https://placehold.co/480x580" alt="Lorem feature portrait 2" width="480" height="580" loading="lazy"/>
+        <img src="https://placehold.co/480x580" alt="Abstract architectural view" width="480" height="580" loading="lazy"/>
         <div class="feat-card__body">
           <p class="feat-card__kicker">Consectetur</p>
           <h3 class="feat-card__h" id="feat2">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi aliquip</h3>
@@ -1466,7 +1471,7 @@ figcaption{
   <div class="s-content">
     <div class="g2">
       <article class="art--h" aria-labelledby="mf1">
-        <figure class="art__img"><img src="https://placehold.co" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="" width="200" height="150" loading="lazy"/></figure>
         <div>
           <span class="art__kicker art__kicker--pink">Lorem</span>
           <h3 class="art__h art__h--xs" id="mf1"><a href="#">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit fugit</a></h3>
@@ -1474,16 +1479,16 @@ figcaption{
         </div>
       </article>
       <article class="art--h" aria-labelledby="mf2">
-        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="" width="200" height="150" loading="lazy"/></figure>
         <div>
           <span class="art__kicker art__kicker--brown">Ipsum</span>
           <h3 class="art__h art__h--xs" id="mf2"><a href="#">At vero eos et accusamus et iusto odio dignissimos ducimus blanditiis</a></h3>
-          <div class="art__stars">★★★★★</div>
+          <div class="art__stars" aria-label="5 out of 5 stars">★★★★★</div>
           <p class="art__time">2h ago</p>
         </div>
       </article>
       <article class="art--h" aria-labelledby="mf3">
-        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="" width="200" height="150" loading="lazy"/></figure>
         <div>
           <span class="art__kicker art__kicker--pink">Dolor</span>
           <h3 class="art__h art__h--xs" id="mf3"><a href="#">Nam libero tempore soluta nobis eligendi optio cumque nihil impedit</a></h3>
@@ -1491,7 +1496,7 @@ figcaption{
         </div>
       </article>
       <article class="art--h" aria-labelledby="mf4">
-        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="" width="200" height="150" loading="lazy"/></figure>
         <div>
           <span class="art__kicker">Sit amet</span>
           <h3 class="art__h art__h--xs" id="mf4"><a href="#">Temporibus autem quibusdam et aut officiis debitis rerum necessitatibus</a></h3>
@@ -1499,7 +1504,7 @@ figcaption{
         </div>
       </article>
       <article class="art--h" style="border-bottom:none" aria-labelledby="mf5">
-        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="" width="200" height="150" loading="lazy"/></figure>
         <div>
           <span class="art__kicker art__kicker--pink">Consectetur</span>
           <h3 class="art__h art__h--xs" id="mf5"><a href="#">Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse</a></h3>
@@ -1507,7 +1512,7 @@ figcaption{
         </div>
       </article>
       <article class="art--h" style="border-bottom:none" aria-labelledby="mf6">
-        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="" width="200" height="150" loading="lazy"/></figure>
         <div>
           <span class="art__kicker art__kicker--green">Adipiscing</span>
           <h3 class="art__h art__h--xs" id="mf6"><a href="#">Itaque earum rerum hic tenetur a sapiente delectus aut reiciendis</a></h3>
@@ -1529,29 +1534,29 @@ figcaption{
         <p class="art__deck">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
         <p class="art__time">7h ago</p>
       </article>
-      <figure><img src="https://placehold.co/440x320" alt="Lorem exclusive story image" width="440" height="320" loading="lazy"/></figure>
+      <figure><img src="https://placehold.co/440x320" alt="Large crowd gathered in a public space" width="440" height="320" loading="lazy"/></figure>
     </div>
     <div class="g4" style="border-top:1px solid var(--border);padding-top:12px">
       <article aria-labelledby="mt2">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker">Lorem</span>
         <h3 class="art__h art__h--xs" id="mt2"><a href="#">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit fugit</a></h3>
         <p class="art__time">9h ago</p>
       </article>
       <article aria-labelledby="mt3">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker">Ipsum</span>
         <h3 class="art__h art__h--xs" id="mt3"><a href="#">At vero eos et accusamus et iusto odio dignissimos ducimus blanditiis</a></h3>
         <p class="art__time">9h ago</p>
       </article>
       <article aria-labelledby="mt4">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker">Dolor</span>
         <h3 class="art__h art__h--xs" id="mt4"><a href="#">Nam libero tempore cum soluta nobis eligendi optio cumque nihil impedit</a></h3>
         <p class="art__time">9h ago</p>
       </article>
       <article aria-labelledby="mt5">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker art__kicker--red">Sit amet</span>
         <h3 class="art__h art__h--xs" id="mt5"><a href="#">Temporibus autem quibusdam aut officiis debitis rerum necessitatibus</a></h3>
         <p class="art__time">10h ago</p>
@@ -1566,22 +1571,22 @@ figcaption{
   <div class="s-content">
     <div class="g4">
       <article aria-labelledby="cl1">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem environment" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker art__kicker--env">Lorem ipsum</span>
         <h3 class="art__h art__h--xs" id="cl1"><a href="#">Consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore</a></h3>
       </article>
       <article aria-labelledby="cl2">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem environment" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker art__kicker--env">Dolor sit</span>
         <h3 class="art__h art__h--xs" id="cl2"><a href="#">Nemo enim ipsam voluptatem quia voluptas aspernatur aut odit fugit</a></h3>
       </article>
       <article aria-labelledby="cl3">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem environment" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker art__kicker--env">Amet lorem</span>
         <h3 class="art__h art__h--xs" id="cl3"><a href="#">At vero eos accusamus et iusto odio dignissimos ducimus blanditiis praesentium</a></h3>
       </article>
       <article aria-labelledby="cl4">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem environment" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker art__kicker--env">Ipsum dolor</span>
         <h3 class="art__h art__h--xs" id="cl4"><a href="#">Nam libero tempore soluta nobis eligendi optio cumque nihil impedit quo</a></h3>
       </article>
@@ -1668,19 +1673,19 @@ figcaption{
     </div>
     <article aria-labelledby="pc1">
       <h3 class="paid-art__h" id="pc1"><a href="#">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod</a></h3>
-      <div class="paid-art__img"><img src="https://placehold.co/300x200" alt="Lorem paid content illustration 1" width="300" height="200" loading="lazy"/></div>
+      <div class="paid-art__img"><img src="https://placehold.co/300x200" alt="Product shot of consumer technology" width="300" height="200" loading="lazy"/></div>
     </article>
     <article aria-labelledby="pc2">
       <h3 class="paid-art__h" id="pc2"><a href="#">Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi</a></h3>
-      <div class="paid-art__img"><img src="https://placehold.co/300x200" alt="Lorem paid content illustration 2" width="300" height="200" loading="lazy"/></div>
+      <div class="paid-art__img"><img src="https://placehold.co/300x200" alt="People sitting at a modern office desk" width="300" height="200" loading="lazy"/></div>
     </article>
     <article aria-labelledby="pc3">
       <h3 class="paid-art__h" id="pc3"><a href="#">Duis aute irure dolor reprehenderit in voluptate velit esse cillum dolore</a></h3>
-      <div class="paid-art__img"><img src="https://placehold.co/300x200" alt="Lorem paid content illustration 3" width="300" height="200" loading="lazy"/></div>
+      <div class="paid-art__img"><img src="https://placehold.co/300x200" alt="Abstract rendering of data analytics" width="300" height="200" loading="lazy"/></div>
     </article>
     <article aria-labelledby="pc4">
       <h3 class="paid-art__h" id="pc4"><a href="#">Excepteur sint occaecat cupidatat non proident sunt in culpa officia deserunt</a></h3>
-      <div class="paid-art__img"><img src="https://placehold.co/300x200" alt="Lorem paid content illustration 4" width="300" height="200" loading="lazy"/></div>
+      <div class="paid-art__img"><img src="https://placehold.co/300x200" alt="Close up of hands typing on laptop" width="300" height="200" loading="lazy"/></div>
     </article>
     <div class="paid-footer">Paid for by <strong>Lorem Ipsum Corp</strong></div>
   </div>
@@ -1692,14 +1697,14 @@ figcaption{
   <div class="s-content">
     <div class="culture-hero" style="margin-bottom:12px">
       <a class="feat-card" href="#" aria-labelledby="cu1">
-        <img src="https://placehold.co/500x420" alt="Lorem culture hero 1" width="500" height="420" loading="lazy"/>
+        <img src="https://placehold.co/500x420" alt="Musician performing on stage" width="500" height="420" loading="lazy"/>
         <div class="feat-card__body">
           <p class="feat-card__kicker">Lorem ipsum</p>
           <h3 class="feat-card__h" id="cu1">Consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore dolore</h3>
         </div>
       </a>
       <a class="feat-card" href="#" aria-labelledby="cu2">
-        <img src="https://placehold.co/500x420" alt="Lorem culture hero 2" width="500" height="420" loading="lazy"/>
+        <img src="https://placehold.co/500x420" alt="View inside a modern art gallery" width="500" height="420" loading="lazy"/>
         <div class="feat-card__body">
           <p class="feat-card__kicker">The big idea</p>
           <h3 class="feat-card__h" id="cu2">Lorem ipsum dolor sit amet consectetur adipiscing elit</h3>
@@ -1715,22 +1720,22 @@ figcaption{
   <div class="s-content">
     <div class="g4">
       <article aria-labelledby="ww1">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker art__kicker--muted">Lorem review</span>
         <h3 class="art__h art__h--xs" id="ww1"><a href="#">Consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore</a></h3>
       </article>
       <article aria-labelledby="ww2">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker art__kicker--brown">Lorem film</span>
         <h3 class="art__h art__h--xs" id="ww2"><a href="#">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit fugit</a></h3>
       </article>
       <article aria-labelledby="ww3">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker art__kicker--brown">Lorem review</span>
         <h3 class="art__h art__h--xs" id="ww3"><a href="#">At vero eos accusamus iusto odio dignissimos ducimus blanditiis</a></h3>
       </article>
       <article aria-labelledby="ww4">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker art__kicker--muted">Lorem ipsum</span>
         <h3 class="art__h art__h--xs" id="ww4"><a href="#">Nam libero tempore soluta nobis eligendi optio cumque nihil impedit</a></h3>
         <p class="art__byline" style="color:var(--teal);font-size:12px">Lorem Ipsum</p>
@@ -1745,22 +1750,22 @@ figcaption{
   <div class="s-content">
     <div class="g4">
       <article aria-labelledby="wl1">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker art__kicker--muted">Lorem playlist</span>
         <h3 class="art__h art__h--xs" id="wl1"><a href="#">Consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore</a></h3>
       </article>
       <article aria-labelledby="wl2">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker art__kicker--brown">Lorem music</span>
         <h3 class="art__h art__h--xs" id="wl2"><a href="#">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit</a></h3>
       </article>
       <article aria-labelledby="wl3">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker art__kicker--brown">Lorem ipsum</span>
         <h3 class="art__h art__h--xs" id="wl3"><a href="#">At vero eos accusamus iusto odio dignissimos ducimus blanditiis</a></h3>
       </article>
       <article aria-labelledby="wl4">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker art__kicker--muted">Lorem review</span>
         <h3 class="art__h art__h--xs" id="wl4"><a href="#">Nam libero tempore soluta nobis eligendi optio cumque nihil impedit</a></h3>
       </article>
@@ -1774,28 +1779,28 @@ figcaption{
   <div class="s-content">
     <div class="g2">
       <article class="art--h" aria-labelledby="wr1">
-        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="" width="200" height="150" loading="lazy"/></figure>
         <div>
           <span class="art__kicker art__kicker--brown">Lorem essays</span>
           <h3 class="art__h art__h--xs" id="wr1"><a href="#">Consectetur adipiscing elit sed eiusmod tempor incididunt ut labore</a></h3>
         </div>
       </article>
       <article class="art--h" aria-labelledby="wr2">
-        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="" width="200" height="150" loading="lazy"/></figure>
         <div>
           <span class="art__kicker art__kicker--brown">Lorem fiction</span>
           <h3 class="art__h art__h--xs" id="wr2"><a href="#">Nemo enim ipsam voluptatem quia voluptas aspernatur aut odit fugit</a></h3>
         </div>
       </article>
       <article class="art--h" style="border-bottom:none" aria-labelledby="wr3">
-        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="" width="200" height="150" loading="lazy"/></figure>
         <div>
           <span class="art__kicker art__kicker--brown">Lorem roundup</span>
           <h3 class="art__h art__h--xs" id="wr3"><a href="#">At vero eos et accusamus iusto odio dignissimos ducimus blanditiis</a></h3>
         </div>
       </article>
       <article class="art--h" style="border-bottom:none" aria-labelledby="wr4">
-        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="" width="200" height="150" loading="lazy"/></figure>
         <div>
           <span class="art__kicker art__kicker--brown">Lorem fiction</span>
           <h3 class="art__h art__h--xs" id="wr4"><a href="#">Nam libero tempore soluta nobis eligendi optio cumque nihil impedit</a></h3>
@@ -1811,28 +1816,28 @@ figcaption{
   <div class="s-content">
     <div class="g2">
       <article class="art--h" aria-labelledby="wp1">
-        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="" width="200" height="150" loading="lazy"/></figure>
         <div>
           <span class="art__kicker">Lorem games</span>
           <h3 class="art__h art__h--xs" id="wp1"><a href="#">Consectetur adipiscing elit sed eiusmod tempor incididunt ut labore</a></h3>
         </div>
       </article>
       <article class="art--h" aria-labelledby="wp2">
-        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="" width="200" height="150" loading="lazy"/></figure>
         <div>
           <span class="art__kicker">Lorem awards</span>
           <h3 class="art__h art__h--xs" id="wp2"><a href="#">Nemo enim ipsam voluptatem quia voluptas aspernatur aut odit fugit</a></h3>
         </div>
       </article>
       <article class="art--h" style="border-bottom:none" aria-labelledby="wp3">
-        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="" width="200" height="150" loading="lazy"/></figure>
         <div>
           <span class="art__kicker">Lorem retro</span>
           <h3 class="art__h art__h--xs" id="wp3"><a href="#">At vero eos accusamus iusto odio dignissimos ducimus blanditiis</a></h3>
         </div>
       </article>
       <article class="art--h" style="border-bottom:none" aria-labelledby="wp4">
-        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="" width="200" height="150" loading="lazy"/></figure>
         <div>
           <span class="art__kicker">Lorem sci-fi</span>
           <h3 class="art__h art__h--xs" id="wp4"><a href="#">Nam libero tempore soluta nobis eligendi optio cumque nihil impedit</a></h3>
@@ -1848,22 +1853,22 @@ figcaption{
   <div class="s-content">
     <div class="g4">
       <article aria-labelledby="mc1">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker">Lorem cartoon</span>
         <h3 class="art__h art__h--xs" id="mc1"><a href="#">Consectetur adipiscing elit eiusmod tempor incididunt labore dolore</a></h3>
       </article>
       <article aria-labelledby="mc2">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker">Lorem art</span>
         <h3 class="art__h art__h--xs" id="mc2"><a href="#">Nemo enim ipsam voluptatem quia voluptas aspernatur aut odit fugit</a></h3>
       </article>
       <article aria-labelledby="mc3">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker">Lorem photo</span>
         <h3 class="art__h art__h--xs" id="mc3"><a href="#">At vero eos accusamus iusto odio dignissimos ducimus blanditiis</a></h3>
       </article>
       <article aria-labelledby="mc4">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker">Lorem celebrity</span>
         <h3 class="art__h art__h--xs" id="mc4"><a href="#">Nam libero tempore soluta nobis eligendi optio cumque nihil impedit</a></h3>
       </article>
@@ -1877,14 +1882,14 @@ figcaption{
   <div class="s-content">
     <div class="culture-hero" style="margin-bottom:12px">
       <a class="feat-card" href="#" aria-labelledby="ls-h1">
-        <img src="https://placehold.co/500x320" alt="Lorem lifestyle hero 1" width="500" height="320" loading="lazy"/>
+        <img src="https://placehold.co/500x320" alt="Interior view of modern living room" width="500" height="320" loading="lazy"/>
         <div class="feat-card__body">
           <p class="feat-card__kicker">Lorem ipsum</p>
           <h3 class="feat-card__h" id="ls-h1">Consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore</h3>
         </div>
       </a>
       <a class="feat-card" href="#" aria-labelledby="ls-h2">
-        <img src="https://placehold.co/500x320" alt="Lorem lifestyle hero 2" width="500" height="320" loading="lazy"/>
+        <img src="https://placehold.co/500x320" alt="Scenic view of ocean cliffside" width="500" height="320" loading="lazy"/>
         <div class="feat-card__body">
           <p class="feat-card__kicker">Lorem travel</p>
           <h3 class="feat-card__h" id="ls-h2">Nemo enim ipsam voluptatem quia voluptas aspernatur aut odit aut fugit</h3>
@@ -1900,22 +1905,22 @@ figcaption{
   <div class="s-content">
     <div class="g4">
       <article aria-labelledby="fd1">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker art__kicker--pink">Lorem cookbook</span>
         <h3 class="art__h art__h--xs" id="fd1"><a href="#">Consectetur adipiscing elit eiusmod tempor incididunt ut labore dolore</a></h3>
       </article>
       <article aria-labelledby="fd2">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker art__kicker--pink">Lorem oils</span>
         <h3 class="art__h art__h--xs" id="fd2"><a href="#">Nemo enim ipsam voluptatem quia voluptas aspernatur aut odit fugit</a></h3>
       </article>
       <article aria-labelledby="fd3">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker art__kicker--pink">Lorem chef</span>
         <h3 class="art__h art__h--xs" id="fd3"><a href="#">At vero eos accusamus iusto odio dignissimos ducimus qui blanditiis</a></h3>
       </article>
       <article aria-labelledby="fd4">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker art__kicker--pink">Lorem recipe</span>
         <h3 class="art__h art__h--xs" id="fd4"><a href="#">Nam libero tempore soluta nobis eligendi optio cumque nihil impedit</a></h3>
       </article>
@@ -1929,22 +1934,22 @@ figcaption{
   <div class="s-content">
     <div class="g4">
       <article aria-labelledby="fb1">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker art__kicker--pink">Lorem fashion</span>
         <h3 class="art__h art__h--xs" id="fb1"><a href="#">Consectetur adipiscing elit eiusmod tempor incididunt ut labore dolore</a></h3>
       </article>
       <article aria-labelledby="fb2">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker art__kicker--pink">Lorem streetwear</span>
         <h3 class="art__h art__h--xs" id="fb2"><a href="#">Nemo enim ipsam voluptatem quia voluptas aspernatur aut odit fugit</a></h3>
       </article>
       <article aria-labelledby="fb3">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker art__kicker--pink">Lorem menswear</span>
         <h3 class="art__h art__h--xs" id="fb3"><a href="#">At vero eos accusamus iusto odio dignissimos ducimus blanditiis</a></h3>
       </article>
       <article aria-labelledby="fb4">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker art__kicker--pink">Lorem style</span>
         <h3 class="art__h art__h--xs" id="fb4"><a href="#">Nam libero tempore soluta nobis eligendi optio cumque nihil impedit</a></h3>
       </article>
@@ -1958,28 +1963,28 @@ figcaption{
   <div class="s-content">
     <div class="g2">
       <article class="art--h" aria-labelledby="re1">
-        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="" width="200" height="150" loading="lazy"/></figure>
         <div>
           <span class="art__kicker">Lorem date</span>
           <h3 class="art__h art__h--xs" id="re1"><a href="#">Consectetur adipiscing elit sed eiusmod tempor incididunt ut labore</a></h3>
         </div>
       </article>
       <article class="art--h" aria-labelledby="re2">
-        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="" width="200" height="150" loading="lazy"/></figure>
         <div>
           <span class="art__kicker">Lorem relationships</span>
           <h3 class="art__h art__h--xs" id="re2"><a href="#">Nemo enim ipsam voluptatem quia voluptas aspernatur aut odit fugit</a></h3>
         </div>
       </article>
       <article class="art--h" style="border-bottom:none" aria-labelledby="re3">
-        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="" width="200" height="150" loading="lazy"/></figure>
         <div>
           <span class="art__kicker">Lorem dating</span>
           <h3 class="art__h art__h--xs" id="re3"><a href="#">At vero eos accusamus et iusto odio dignissimos ducimus blanditiis</a></h3>
         </div>
       </article>
       <article class="art--h" style="border-bottom:none" aria-labelledby="re4">
-        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="" width="200" height="150" loading="lazy"/></figure>
         <div>
           <span class="art__kicker">Lorem running</span>
           <h3 class="art__h art__h--xs" id="re4"><a href="#">Nam libero tempore soluta nobis eligendi optio cumque nihil impedit</a></h3>
@@ -1995,28 +2000,28 @@ figcaption{
   <div class="s-content">
     <div class="g2">
       <article class="art--h" aria-labelledby="hf1">
-        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="" width="200" height="150" loading="lazy"/></figure>
         <div>
           <span class="art__kicker art__kicker--pink">Lorem health</span>
           <h3 class="art__h art__h--xs" id="hf1"><a href="#">Consectetur adipiscing elit sed eiusmod tempor incididunt ut labore</a></h3>
         </div>
       </article>
       <article class="art--h" aria-labelledby="hf2">
-        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="" width="200" height="150" loading="lazy"/></figure>
         <div>
           <span class="art__kicker">Lorem wellness</span>
           <h3 class="art__h art__h--xs" id="hf2"><a href="#">Nemo enim ipsam voluptatem quia voluptas aspernatur aut odit fugit</a></h3>
         </div>
       </article>
       <article class="art--h" style="border-bottom:none" aria-labelledby="hf3">
-        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="" width="200" height="150" loading="lazy"/></figure>
         <div>
           <span class="art__kicker art__kicker--pink">Lorem myth</span>
           <h3 class="art__h art__h--xs" id="hf3"><a href="#">At vero eos accusamus et iusto odio dignissimos ducimus blanditiis</a></h3>
         </div>
       </article>
       <article class="art--h" style="border-bottom:none" aria-labelledby="hf4">
-        <figure class="art__img"><img src="https://placehold.co/200x150" alt="Lorem placeholder" width="200" height="150" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/200x150" alt="" width="200" height="150" loading="lazy"/></figure>
         <div>
           <span class="art__kicker">Lorem secrets</span>
           <h3 class="art__h art__h--xs" id="hf4"><a href="#">Nam libero tempore soluta nobis eligendi optio cumque nihil impedit</a></h3>
@@ -2032,22 +2037,22 @@ figcaption{
   <div class="s-content">
     <div class="g4">
       <article aria-labelledby="ml1">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker art__kicker--pink">Lorem column</span>
         <h3 class="art__h art__h--xs" id="ml1"><a href="#">Consectetur adipiscing elit eiusmod tempor incididunt ut labore dolore</a></h3>
       </article>
       <article aria-labelledby="ml2">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker">Lorem career</span>
         <h3 class="art__h art__h--xs" id="ml2"><a href="#">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit</a></h3>
       </article>
       <article aria-labelledby="ml3">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker">Lorem experience</span>
         <h3 class="art__h art__h--xs" id="ml3"><a href="#">At vero eos accusamus iusto odio dignissimos ducimus blanditiis</a></h3>
       </article>
       <article aria-labelledby="ml4">
-        <figure class="art__img"><img src="https://placehold.co/280x168" alt="Lorem placeholder" width="280" height="168" loading="lazy"/></figure>
+        <figure class="art__img"><img src="https://placehold.co/280x168" alt="" width="280" height="168" loading="lazy"/></figure>
         <span class="art__kicker">Lorem quiz</span>
         <h3 class="art__h art__h--xs" id="ml4"><a href="#">Nam libero tempore soluta nobis eligendi optio cumque nihil impedit</a></h3>
       </article>
@@ -2070,7 +2075,7 @@ figcaption{
         </div>
       </div>
       <figure>
-        <img src="https://placehold.co/640x360" alt="Lorem in pictures gallery" width="640" height="360" loading="lazy"/>
+        <img src="https://placehold.co/640x360" alt="Collage of various news photographs" width="640" height="360" loading="lazy"/>
       </figure>
     </div>
   </div>
@@ -2082,21 +2087,21 @@ figcaption{
   <div class="s-content">
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px">
       <a class="missed-card" href="#" aria-labelledby="mm1">
-        <img src="https://placehold.co/400x320" alt="Lorem missed story 1" width="400" height="320" loading="lazy"/>
+        <img src="https://placehold.co/400x320" alt="Landscape view of mountain range" width="400" height="320" loading="lazy"/>
         <div class="missed-card__body">
           <p class="missed-card__kicker">Lorem ipsum</p>
           <h3 class="missed-card__h" id="mm1">Consectetur adipiscing elit sed do eiusmod tempor incididunt</h3>
         </div>
       </a>
       <a class="missed-card" href="#" aria-labelledby="mm2">
-        <img src="https://placehold.co/400x320/1a1a1a" alt="Lorem missed story 2" width="400" height="320" loading="lazy"/>
+        <img src="https://placehold.co/400x320/1a1a1a" alt="Dark textured abstract background" width="400" height="320" loading="lazy"/>
         <div class="missed-card__body">
           <p class="missed-card__kicker">Dolor sit</p>
           <h3 class="missed-card__h" id="mm2">Nemo enim ipsam voluptatem quia voluptas aspernatur aut</h3>
         </div>
       </a>
       <a class="missed-card" href="#" aria-labelledby="mm3">
-        <img src="https://placehold.co/400x320" alt="Lorem missed story 3" width="400" height="320" loading="lazy"/>
+        <img src="https://placehold.co/400x320" alt="Close up of mechanical gears" width="400" height="320" loading="lazy"/>
         <div class="missed-card__body">
           <p class="missed-card__kicker">Amet lorem</p>
           <h3 class="missed-card__h" id="mm3">At vero eos accusamus iusto odio dignissimos ducimus</h3>
@@ -2231,7 +2236,8 @@ figcaption{
 
   <!-- Panel: Deeply read -->
   <div class="pop-panel" id="panel-read" role="tabpanel" aria-labelledby="tab-read" hidden>
-    <p class="pop-sub">Consectetur adipiscing elit <a href="#">Lorem ipsum</a></p>
+    <!-- WAVE A11y Fix: Added aria-label to clarify vague "Learn more" text -->
+    <p class="pop-sub">Consectetur adipiscing elit <a href="#" aria-label="Learn more about how deeply read articles are calculated">Lorem ipsum</a></p>
     <div class="pop-cols">
       <ol aria-label="Deeply read articles, left column">
         <li class="pop-item"><span class="pop-num" aria-hidden="true">1</span><p class="pop-text"><a href="#">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium</a></p></li>
@@ -2437,6 +2443,7 @@ figcaption{
   const searchInput   = document.getElementById('search-input');
   const searchOpen    = document.getElementById('search-open');
   const searchClose   = document.getElementById('search-close');
+  const searchForm    = document.querySelector('#search-overlay form');
 
   function openSearch() {
     searchOverlay.classList.add('open');
@@ -2462,13 +2469,16 @@ figcaption{
   });
   
   // fake search action
-  searchInput.addEventListener('keydown', e => {
-    if (e.key === 'Enter' && searchInput.value.trim()) {
-      alert('Search: ' + searchInput.value.trim());
-      closeSearch();
-    }
-  });
-  
+  if(searchForm) {
+    searchForm.addEventListener('submit', e => {
+      e.preventDefault();
+      if (searchInput.value.trim()) {
+        alert('Search: ' + searchInput.value.trim());
+        closeSearch();
+      }
+    });
+  }
+
   // clickable search hints
   document.querySelectorAll('.search-hints span').forEach(hint => {
     hint.addEventListener('click', () => {
