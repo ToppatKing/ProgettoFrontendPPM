@@ -47,6 +47,8 @@
   --border-l:#2e2e2e;
   --text:    #f5f5f5;
   --muted:   #d4d4d4; /* Lightened from #aaaaaa to pass 7:1 vs #1a1a1a */
+
+  .art__stars{color:#ffb84d;}
   
   --red:     #ff9999;
   --amber:   #ffb870;
@@ -448,7 +450,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit;color:inhe
 .art__deck{font-family:var(--ff-san);font-size:14px;color:var(--muted);line-height:1.5;margin-bottom:4px}
 .art__byline{font-family:var(--ff-san);font-size:13px;color:var(--teal)}
 .art__time{font-family:var(--ff-san);font-size:12px;color:var(--muted);margin-top:3px}
-.art__stars{color:#c9770a;font-size:13px;margin-top:3px}
+.art__stars{color:#733c00;font-size:13px;margin-top:3px}
 figcaption{
   font-family:var(--ff-san);font-size:11px;
   color:var(--muted);margin-top:3px;line-height:1.4;
@@ -1064,7 +1066,7 @@ figcaption{
         <!-- WAVE A11y Fix: Descriptive alt text replacing vague placeholder -->
         <figure class="art__img"><img src="https://placehold.co/520x310/" alt="Close up view of abstract architectural lines" width="520" height="310" loading="eager" fetchpriority="high"/></figure>
         <span class="art__kicker">Consectetur adipiscing</span>
-        <h3 class="art__h art__h--sm" id="n1b"><a href="#">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</a></h3>
+        <h2 class="art__h art__h--sm" id="n1b"><a href="#">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</a></h2>
       </article>
     </div>
 
@@ -1109,15 +1111,15 @@ figcaption{
       <div class="g3" style="margin-top:12px">
         <div>
           <span class="art__kicker">Lorem</span>
-          <h4 class="art__h art__h--xs"><a href="#">At vero eos et accusamus et iusto odio dignissimos ducimus blanditiis</a></h4>
+          <h3 class="art__h art__h--xs"><a href="#">At vero eos et accusamus et iusto odio dignissimos ducimus blanditiis</a></h3>
         </div>
         <div>
           <span class="art__kicker art__kicker--red">Ipsum</span>
-          <h4 class="art__h art__h--xs"><a href="#">Nam libero tempore cum soluta nobis eligendi optio cumque nihil</a></h4>
+          <h3 class="art__h art__h--xs"><a href="#">Nam libero tempore cum soluta nobis eligendi optio cumque nihil</a></h3>
         </div>
         <div>
           <span class="art__kicker">Dolor</span>
-          <h4 class="art__h art__h--xs"><a href="#">Temporibus autem quibusdam et aut officiis debitis rerum necessitatibus</a></h4>
+          <h3 class="art__h art__h--xs"><a href="#">Temporibus autem quibusdam et aut officiis debitis rerum necessitatibus</a></h3>
         </div>
       </div>
     </article>
@@ -1340,11 +1342,11 @@ figcaption{
         <p class="art__time">7h ago</p>
         <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border)">
           <span class="art__kicker art__kicker--green" style="font-size:11px">Lorem Ipsum</span>
-          <h4 class="art__h art__h--xs"><a href="#">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit</a></h4>
+          <h3 class="art__h art__h--xs"><a href="#">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit</a></h3>
         </div>
         <div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--border)">
           <span class="art__kicker art__kicker--green" style="font-size:11px">Gallery</span>
-          <h4 class="art__h art__h--xs"><a href="#">At vero eos et accusamus et iusto odio dignissimos ducimus</a></h4>
+          <h3 class="art__h art__h--xs"><a href="#">At vero eos et accusamus et iusto odio dignissimos ducimus</a></h3>
         </div>
       </article>
       <figure><img src="https://placehold.co/500x380" alt="Action shot of a sports stadium" width="500" height="380" loading="lazy"/></figure>
